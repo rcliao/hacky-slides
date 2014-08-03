@@ -1,4 +1,3 @@
-
 # angularFire-seed — the seed for AngularFire apps
 
 This project is an application skeleton for a typical [AngularFire](http://angularfire.com/) web app.
