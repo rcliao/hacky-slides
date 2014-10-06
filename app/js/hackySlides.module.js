@@ -14,7 +14,10 @@ define(
 		// firebase related modules
 		'firebase',
 		'angular-firebase',
-		'firebase-simple-login'
+		'firebase-simple-login',
+
+		// marked
+		'marked'
 	],
 	function (angular) {
 		'use strict';

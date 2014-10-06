@@ -26,6 +26,9 @@ require.config({
 		// ACE editor
 		'ace': '../libs/ace-builds/src-min-noconflict/ace',
 
+		// markdown parser by `marked`
+		'marked': '../libs/marked/lib/marked',
+
 		// main app
 		'hackySlides.module': 'hackySlides.module',
 	},

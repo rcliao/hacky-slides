@@ -88,7 +88,17 @@ define(
 					'dashboard.noteEditor',
 					{
 						url: '/note/editor',
-						templateUrl: 'partials/notes/noteEditor.html'
+						templateUrl: 'partials/notes/noteEditor.html',
+						controller: 'NoteEditorCtrl as noteEditor',
+						resolve: {
+							resolveRouteCtrl: routeResolver
+								.route
+								.resolve(
+									[
+										'./note/noteEditorCtrl'
+									]
+								)
+						}
 					}
 				);
 		}
