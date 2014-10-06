@@ -1,70 +1,77 @@
 /* app css stylesheet */
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400);
 
-.hide {
-   display: none;
+html, body {
+    font-size: 14px;
+    font-family: 'Open Sans', sans-serif;
 }
 
-.menu {
-  list-style: none;
-  border-bottom: 0.1em solid black;
-  margin-bottom: 2em;
-  padding: 0 0 0.5em;
+body {
+  background-color: #ddd;
+  background-image: url(../img/gplay.png);
 }
 
-.menu:before {
-  content: "[";
+[ng-click],
+[data-ng-click],
+[x-ng-click] {
+    cursor: pointer;
 }
 
-.menu:after {
-  content: "]";
+/* box-shadow helper class */
+.z-index-1 {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24) !important;
+}
+.z-index-2 {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23) !important;
+}
+.z-index-3 {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23) !important;
+}
+.z-index-4 {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22) !important;
+}
+.z-index-5 {
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22) !important;
 }
 
-.menu > li {
-  display: inline;
+.edlio-watermark-svg {
+  width: 2em;
+  height: 1em;
 }
 
-.menu > li.hide {
-   display: none;
+.fix-center-label {
+  text-align: left;
 }
 
-.menu > li:before {
-  content: "|";
-  padding-right: 0.3em;
+
+/* Animations with Animate.css */
+
+#main_views.ng-enter,
+#main_views.ng-leave {
+    -webkit-transition: 1s all;
+       -moz-transition: 1s all;
+            transition: 1s all;
 }
 
-.menu > li:nth-child(1):before {
-  content: "";
-  padding: 0;
+#main_views.ng-enter #login_form {
+    -webkit-animation: fadeInDown 1s;
+         -o-animation: fadeInDown 1s;
+            animation: fadeInDown 1s;
 }
 
-p.status {
-   color: red;
+#main_views.ng-leave #login_form {
+    -webkit-animation: fadeOut 0.7s;
+         -o-animation: fadeOut 0.7s;
+            animation: fadeOut 0.7s;
 }
 
-p.status.good, p.good {
-   color: green;
+#login_feedback.ng-enter {
+    -webkit-animation: fadeInUp 0.3s;
+         -o-animation: fadeInUp 0.3s;
+            animation: fadeInUp 0.3s;
 }
 
-form label {
-   display: block;
-   margin: 15px 0;
-}
-
-form label span {
-   display: block;
-   font-weight: bold;
-}
-
-.error {
-   color: red;
-}
-
-fieldset {
-   float: left;
-   margin-right: 25px;
-   padding: 25px;
-}
-
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-    display: none !important;
-}
+#login_feedback.ng-leave {
+    -webkit-animation: fadeOutDown 0.3s;
+         -o-animation: fadeOutDown 0.3s;
+            animation: fadeOutDown 0.3s;

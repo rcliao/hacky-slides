@@ -29,62 +29,32 @@ define(
 			$state,
 			SimpleLoginService
 		) {
-
-			var user = SimpleLoginService
-				.getCurrentUser();
-
-			if (user.displayName) {
-				routeToChat();
-			}
+			// if user is already login, redirect to the dashboard
+			SimpleLoginService
+				.getCurrentUser()
+				.then(updateUser);
 
 			var vm = this;
 
-			vm.register = register;
-			vm.login = login;
-			vm.sendPasswordResetEmail = sendPasswordResetEmail;
+			vm.loginAsGoogle = loginAsGoogle;
+			vm.loginAsGithub = loginAsGithub;
 
-			function register () {
-				SimpleLoginService.createUser(
-					vm.user.email,
-					vm.user.password
-				)
-				.then(registerCallback, registerError);
-
-				function registerCallback () {
-					login();
-				}
-
-				function registerError (error) {
-					vm.feedback = 'Failed to register, reason: ' + error;
-					removeFeedbackLater(4000);
+			function updateUser (user) {
+				if (user.$id) {
+					redirectToDashboard();
 				}
 			}
 
-			function login () {
-				vm.loading = true;
+			function loginAsGoogle () {
 				SimpleLoginService
-					.emailLogin(vm.user)
+					.loginAsGoogle()
 					.then(loginSuccess, loginError);
 			}
 
-			function sendPasswordResetEmail (user) {
-				SimpleLoginService.sendResetPasswordEmail(user)
-					.then(emailResetSuccess, emailResetError);
-
-				function emailResetError (error) {
-					vm.passwordResetFeedback = {
-						message: error.message,
-						success: false
-					};
-				}
-
-				function emailResetSuccess () {
-					vm.passwordResetFeedback = {
-						message: 'You should be receiving the reset ' +
-						'password email soon.',
-						success: true
-					};
-				}
+			function loginAsGithub () {
+				SimpleLoginService
+					.loginAsGithub()
+					.then(loginSuccess, loginError);
 			}
 
 			/* Helper methods */
@@ -92,10 +62,10 @@ define(
 			function loginSuccess (user) {
 				vm.feedback = 'Welcome, ' + (user.displayName || user.email) +
 					'\n' +
-					'Redirecting to the public chatroom...';
+					'Redirecting to the dashboard...';
 
 				removeFeedbackLater(2000)
-					.then(routeToChat);
+					.then(redirectToDashboard);
 			}
 
 			function loginError (error) {
@@ -121,7 +91,7 @@ define(
 				return deferred.promise;
 			}
 
-			function routeToChat () {
+			function redirectToDashboard () {
 				$state.go('dashboard');
 			}
 		}

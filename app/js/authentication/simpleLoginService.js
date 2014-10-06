@@ -16,7 +16,9 @@ define(
 			'$state',
 
 			'$firebase',
-			'$firebaseSimpleLogin'
+			'$firebaseSimpleLogin',
+
+			'firebaseReferenceService'
 		];
 
 		return app
@@ -25,22 +27,19 @@ define(
 		function SimpleLoginService (
 			$rootScope, $log, $q,
 			$state,
-			$firebase, $firebaseSimpleLogin) {
+			$firebase, $firebaseSimpleLogin,
+			firebaseReferenceService
+		) {
 
-			var ref = new Firebase('https://fire-chat-room.firebaseio.com/');
-			var existingUserRef =
-				new Firebase('https://fire-chat-room.firebaseio.com')
-					.child('users');
+			var ref = firebaseReferenceService.source;
+			var existingUserRef = firebaseReferenceService.users;
 			var simpleLogin = $firebaseSimpleLogin(ref);
 
 			var service = {
-				emailLogin: emailLogin,
+				loginAsGoogle: loginAsGoogle,
+				loginAsGithub: loginAsGithub,
 				getCurrentUser: getCurrentUser,
-				logout: logout,
-				createUser: createUser,
-				sendResetPasswordEmail: sendResetPasswordEmail,
-				changePassword: changePassword,
-				ref: simpleLogin // expose ref if necessary
+				logout: logout
 			};
 
 			// when user gets to the page, get the current user from firebase
@@ -52,17 +51,6 @@ define(
 			$rootScope.$on('$firebaseSimpleLogin:login', storeUser);
 
 			return service;
-
-			function emailLogin (user) {
-				return simpleLogin
-					.$login(
-						'password',
-						{
-							email: user.email,
-							password: user.password
-						}
-					);
-			}
 
 			function getCurrentUser () {
 				return simpleLogin.$getCurrentUser()
@@ -93,8 +81,12 @@ define(
 				}
 			}
 
-			function createUser (email, password) {
-				return simpleLogin.$createUser(email, password);
+			function loginAsGoogle () {
+				return simpleLogin.$login('google');
+			}
+
+			function loginAsGithub () {
+				return simpleLogin.$login('github');
 			}
 
 			function logout () {
@@ -141,15 +133,6 @@ define(
 				} else {
 					$log.error('wtf');
 				}
-			}
-
-			function sendResetPasswordEmail (user) {
-				return simpleLogin.$sendPasswordResetEmail(user.email);
-			}
-
-			function changePassword (user, oldPassword, newPassword) {
-				return simpleLogin.$changePassword(user.email,
-					oldPassword, newPassword);
 			}
 		}
 	}

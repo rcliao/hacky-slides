@@ -9,7 +9,7 @@ define(
 
 		// services
 		'./authentication/simpleLoginService',
-		'./services/firebaseService'
+		'./services/firebaseReferenceService',
 	],
 	function(app) {
 		'use strict';
@@ -27,8 +27,17 @@ define(
 		return app
 			.config(routeConfig);
 
-		function routeConfig ($stateProvider, $urlRouterProvider, routeResolver,
-			$controllerProvider, $compileProvider, $filterProvider, $provide) {
+		function routeConfig (
+			$stateProvider,
+			$urlRouterProvider,
+			routeResolver,
+			$controllerProvider,
+			$compileProvider,
+			$filterProvider,
+			$provide
+		) {
+
+			// using register to tell angularjs to load and register in run time
 			app.register =
 			{
 				controller: $controllerProvider.register,
@@ -56,6 +65,30 @@ define(
 									]
 								)
 						}
+					}
+				)
+				.state(
+					'dashboard',
+					{
+						url: '/dashboard',
+						templateUrl: 'partials/dashboard/dashboard.html',
+						controller: 'DashboardCtrl as dashboard',
+						resolve: {
+							resolveRouteCtrl: routeResolver
+								.route
+								.resolve(
+									[
+										'./dashboard/dashboardCtrl'
+									]
+								)
+						}
+					}
+				)
+				.state(
+					'dashboard.noteEditor',
+					{
+						url: '/note/editor',
+						templateUrl: 'partials/notes/noteEditor.html'
 					}
 				);
 		}
