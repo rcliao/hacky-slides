@@ -1,0 +1,21 @@
+{
+  "name": "Hacky Slides",
+  "description": "A simple presentation tool using AngularJS",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "requirejs": "latest",
+    "bootstrap": "latest",
+    "angular-bootstrap": "latest",
+    "angular": "1.2.x",
+    "angular-animate": "1.2.x",
+    "angular-ui-router": "latest",
+    "angular-ui-utils": "latest",
+    "firebase": "latest",
+    "angularfire": "latest",
+    "semantic": "latest",
+    "animate.css": "~3.2.0",
+    "marked": "~0.3.2",
+    "angular-ui-ace": "bower"
+  }
+}

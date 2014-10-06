@@ -1,0 +1,89 @@
+<section class="ui doubling page aligned middle center three column grid">
+	<div id="login_form" class="column">
+		<h3 class="ui top attached blue  inverted block header">
+			Hacky Slides
+		</h3>
+		<section class="ui form segment attached"
+			ng-class="{
+				'loading': authentication.loading
+			}">
+			<!-- Login Form -->
+			<div class="field">
+				<label for="login_username">Email</label>
+
+				<div class="ui left icon input">
+					<input type="email" id="login_username"
+						placeholder="Email"
+						ng-model="authentication.user.email"
+						autofocus>
+					<i class="mail outline icon"></i>
+				</div>
+			</div>
+			<div class="field">
+				<label for="login_password">Password</label>
+
+				<div class="ui left icon input">
+					<input type="password" id="login_password"
+						placeholder="Password"
+						ng-model="authentication.user.password"
+						ng-enter="authentication.login()">
+					<i class="lock icon"></i>
+				</div>
+			</div>
+
+			<div class="ui message">
+				<div class="ui basic accordion" semantic-accordion>
+					<div class="title">
+						<i class="dropdown icon"></i>
+						Forgot password? Click here to receive a password reset email.
+					</div>
+					<div class="content">
+						<div class="ui input fluid icon left action">
+							<input type="email"
+								placeholder="Your email"
+								ng-model="authentication.emailForReset"
+								ng-enter="authentication
+									.sendPasswordResetEmail({'email': authentication.emailForReset})">
+							<i class="icon mail outline"></i>
+							<div class="ui button"
+								ng-click="authentication
+									.sendPasswordResetEmail({'email': authentication.emailForReset})">
+								Send Email
+							</div>
+						</div>
+
+						<div class="ui pointing label"
+							ng-class="{
+								'blue': !authentication.passwordResetFeedback.success,
+								'green': authentication.passwordResetFeedback.success
+							}"
+							ng-show="authentication.passwordResetFeedback.message">
+							{{authentication.passwordResetFeedback.message}}
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Common Buttons -->
+			<section class="ui fluid two blue buttons">
+				<button class="ui button"
+					ng-click="authentication.login()">
+					Login
+				</button>
+
+				<div class="or"></div>
+
+				<button class="ui button"
+					ng-click="authentication.register()">
+					Register
+				</button>
+			</section>
+		</section>
+
+		<section class="ui bottom attached blue message"
+			id="login_feedback"
+			ng-if="authentication.feedback">
+			{{authentication.feedback}}
+		</section>
+	</div>
+</section>
