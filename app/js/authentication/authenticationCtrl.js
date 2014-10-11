@@ -34,6 +34,11 @@ define(
 				.getCurrentUser()
 				.then(updateUser);
 
+			$scope.$on(
+				'simpleLoginService:notAuthenticatedAsEdlioUser',
+				handleNotValidatedEdlioUser
+			);
+
 			var vm = this;
 
 			vm.loginAsGoogle = loginAsGoogle;
@@ -59,6 +64,15 @@ define(
 
 			/* Helper methods */
 
+			function handleNotValidatedEdlioUser () {
+				// cancel the login success timeout event
+				if (vm.feedbackId) {
+					$timeout.cancel(vm.feedbackId);
+				}
+
+				loginError('Sorry, you are not an Edlio member');
+			}
+
 			function loginSuccess (user) {
 				vm.feedback = 'Welcome, ' + (user.displayName || user.email) +
 					'\n' +
@@ -69,7 +83,7 @@ define(
 			}
 
 			function loginError (error) {
-				vm.feedback = 'Failed to login, reason ' + error;
+				vm.feedback = 'Failed to login, reason: ' + error;
 
 				removeFeedbackLater(4000);
 			}

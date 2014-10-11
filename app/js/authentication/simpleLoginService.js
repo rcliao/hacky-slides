@@ -1,4 +1,4 @@
-/*global define, Firebase*/
+/*global define*/
 
 define(
 	[
@@ -109,6 +109,13 @@ define(
 					// TODO: add handler here
 				}
 				if (user) {
+					if (!validateUserAsEdlio(user)) {
+						$rootScope
+							.$broadcast(
+								'simpleLoginService:notAuthenticatedAsEdlioUser'
+							);
+					}
+
 					$firebase(
 						existingUserRef.child(user.id)
 					)
@@ -133,6 +140,23 @@ define(
 				} else {
 					$log.error('wtf');
 				}
+			}
+
+			function validateUserAsEdlio (user) {
+				switch (user.provider) {
+					case 'google':
+						return user.thirdPartyUserData.hd === 'edlio.com';
+					case 'github':
+						return user.thirdPartyUserData.emails.some(validateEdlioEmail);
+				}
+
+				function validateEdlioEmail (emailObj) {
+					return endsWith(emailObj.email, '@edlio.com');
+				}
+			}
+
+			function endsWith(str, suffix) {
+				return str.indexOf(suffix, str.length - suffix.length) !== -1;
 			}
 		}
 	}
