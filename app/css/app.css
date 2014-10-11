@@ -37,12 +37,35 @@ body {
 .edlio-watermark-svg {
   width: 2em;
   height: 1em;
+  float: left;
 }
 
 .fix-center-label {
   text-align: left;
 }
 
+/* mobile css */
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+/* Styles */
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  section#main_views {
+    height: 100%;
+  }
+
+  .ui.mobile.only {
+    height: 100%;
+  }
+
+  .ui.grid > .column {
+    margin-top: 0;
+  }
+}
 
 /* Animations with Animate.css */
 
@@ -51,6 +74,8 @@ body {
     -webkit-transition: 1s all;
        -moz-transition: 1s all;
             transition: 1s all;
+
+    position: absolute;
 }
 
 #main_views.ng-enter #login_form {
@@ -60,9 +85,9 @@ body {
 }
 
 #main_views.ng-leave #login_form {
-    -webkit-animation: fadeOut 0.7s;
-         -o-animation: fadeOut 0.7s;
-            animation: fadeOut 0.7s;
+    -webkit-animation: fadeOut 1s;
+         -o-animation: fadeOut 1s;
+            animation: fadeOut 1s;
 }
 
 #login_feedback.ng-enter {
@@ -75,3 +100,4 @@ body {
     -webkit-animation: fadeOutDown 0.3s;
          -o-animation: fadeOutDown 0.3s;
             animation: fadeOutDown 0.3s;
+}
