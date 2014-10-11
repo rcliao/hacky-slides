@@ -4,7 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>Hacky Slides</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <title>Edlio Stand Up Notes</title>
 
   <link rel="stylesheet" href="libs/semantic/build/packaged/css/semantic.css">
   <link rel="stylesheet" href="libs/animate.css/animate.css">
@@ -12,9 +17,27 @@
   <link rel="stylesheet" href="css/app.css"/>
 </head>
 <body>
+
   <section id="main_views" ui-view>
   </section>
 
   <script src="libs/requirejs/require.js" data-main="js/manifest.js"></script>
+
+  <script>
+    // When ready...
+    window.addEventListener(
+      "load",
+      function() {
+        // Set a timeout...
+        setTimeout(
+          function(){
+            // Hide the address bar!
+            window.scrollTo(0, 1);
+          },
+          0
+        );
+      }
+    );
+  </script>
 </body>
 </html>
