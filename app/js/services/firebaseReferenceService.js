@@ -12,7 +12,8 @@ define(
 
 			var firebaseRefDef = {
 				source: source,
-				users: source.child('users')
+				users: source.child('users'),
+				weeklyNotes: source.child('weeklyNotes')
 			}
 
 			return firebaseRefDef;

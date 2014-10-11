@@ -43,6 +43,7 @@ define(
 			function aceOnLoaded (editor) {
 				_editor = editor;
 				_editor.setKeyboardHandler('ace/keyboard/vim');
+				_editor.setKeyboardHandler('');
 			}
 
 			function toggleVimMode () {

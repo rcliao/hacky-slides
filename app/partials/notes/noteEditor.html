@@ -1,6 +1,9 @@
-<div class="ui grid">
+<div class="ui computer tablet only grid">
 	<div class="ui row">
-		<div class="ten wide column">
+		<div class="six wide column">
+			<h2 class="ui inverted black aligned center header attached top">
+				Editor
+			</h2>
 			<div class="ui inverted segment attached">
 				<div ui-ace="{
 						useWrapMode : true,
@@ -14,28 +17,32 @@
 					style="height: 40em;">
 				</div>
 			</div>
-			<div class="ui inverted bottom attached segment">
-				<div class="ui three fluid buttons">
-					<div class="ui button">
-						<i class="icon browser"></i>
-						Theme
-					</div>
-					<div class="ui button"
-						ng-class="{'active': noteEditor.vimMode}"
-						ng-click="noteEditor.toggleVimMode()">
-						<i class="icon terminal"></i>
-						Vim Mode
-					</div>
-					<div class="ui button">
-						<i class="icon cloud upload"></i>
-						Save
-					</div>
-				</div>
-			</div>
 		</div>
 
-		<div class="six wide column">
-			<div class="ui segment" ng-bind-html="noteEditor.parseMarkdown()">
+		<div class="ten wide column">
+			<h2 class="ui aligned center header attached top">
+				Preview
+			</h2>
+
+			<div class="ui attached segment" ng-bind-html="noteEditor.parseMarkdown()">
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="ui mobile only one column grid">
+	<div class="column">
+		<div class="ui inverted segment attached">
+			<div ui-ace="{
+					useWrapMode : true,
+					showGutter: true,
+					theme: 'twilight',
+					mode: 'markdown',
+					onLoad: noteEditor.aceOnLoaded,
+					onChange: aceChanged
+				}"
+				ng-model="noteEditor.note"
+				style="height: 40em;">
 			</div>
 		</div>
 	</div>

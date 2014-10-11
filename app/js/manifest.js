@@ -5,6 +5,7 @@ require.config({
 		// angularjs official stuff
 		'angular': '../libs/angular/angular',
 		'angular-animate': '../libs/angular-animate/angular-animate',
+		'angular-touch': '../libs/angular-touch/angular-touch',
 
 		// angularjs-ui components
 		'angular.ui-router': '../libs/angular-ui-router/release/angular-ui-router',
@@ -29,14 +30,18 @@ require.config({
 		// markdown parser by `marked`
 		'marked': '../libs/marked/lib/marked',
 
-		// main app
-		'hackySlides.module': 'hackySlides.module',
+		// custom modules
+		'semanticUiWidgets': 'widgets/semanticUiWidgets.module',
+		'semanticUiSideBar': 'widgets/semanticSideBar'
 	},
 	shim: {
 		'angular': {
 			exports: 'angular'
 		},
 		'angular-animate': {
+			deps: ['angular']
+		},
+		'angular-touch': {
 			deps: ['angular']
 		},
 		'angular.ui-router': {

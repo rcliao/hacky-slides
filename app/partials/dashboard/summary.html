@@ -1,0 +1,42 @@
+<div class="ui computer tablet only one column grid">
+	<div class="column">
+		<div class="ui red header attached top">
+			Summary from Last Week
+		</div>
+		<div class="ui segment attached">
+			<h1 class="ui header">
+				Eric's Note
+			</h1>
+
+			<h3 class="ui header attached top">
+				Last Week
+			</h3>
+
+			<div class="ui segment attached">
+				<ul>
+					<li>Continue Quick Post</li>
+					<li>Help News Polishment</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<div class="ui mobile only one column grid">
+	<div class="column">
+		<div class="ui inverted segment attached">
+			<div ui-ace="{
+					useWrapMode : true,
+					showGutter: true,
+					theme: 'twilight',
+					mode: 'markdown',
+					onLoad: noteEditor.aceOnLoaded,
+					onChange: aceChanged
+				}"
+				ng-model="noteEditor.note"
+				style="height: 40em;">
+			</div>
+		</div>
+	</div>
+</div>

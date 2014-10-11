@@ -85,6 +85,23 @@ define(
 					}
 				)
 				.state(
+					'dashboard.summary',
+					{
+						url: 'dashboard/summary',
+						templateUrl: 'partials/dashboard/summary.html',
+						controller: 'SummaryCtrl as summary',
+						resolve: {
+							resolveRouteCtrl: routeResolver
+								.route
+								.resolve(
+									[
+										'./dashboard/summaryCtrl'
+									]
+								)
+						}
+					}
+				)
+				.state(
 					'dashboard.noteEditor',
 					{
 						url: '/note/editor',

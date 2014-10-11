@@ -1,10 +1,11 @@
-<section class="ui doubling page divided grid">
+<section class="ui computer tablet only doubling page divided grid">
 	<div class="row">
 		<div class="three wide column">
 			<div class="ui vertical fluid red menu">
-				<div class="item">
+				<a class="item" ui-sref="dashboard.summary"
+					ui-sref-active-eq="active">
 					Last Week's Summary
-				</div>
+				</a>
 				<a class="item" ui-sref="dashboard.noteEditor"
 					ui-sref-active="active">
 					Note Editor
@@ -20,3 +21,25 @@
 		</div>
 	</div>
 </section>
+
+<section class="ui mobile only doubling page one column grid"
+	ng-swipe-left="sidebarMenuOpen = false;"
+	ng-swipe-right="sidebarMenuOpen = true;">
+	<div class="column">
+		<div ui-view></div>
+	</div>
+</section>
+
+<div class="ui mobile only red vertical demo sidebar menu" semantic-side-bar is-open="sidebarMenuOpen">
+	<div class="item" ui-sref="dashboard.summary"
+		ui-sref-active="active">
+		Last Week's Summary
+	</div>
+	<a class="item" ui-sref="dashboard.noteEditor"
+		ui-sref-active="active">
+		Note Editor
+	</a>
+	<div class="item">
+		Present Note
+	</div>
+</div>
