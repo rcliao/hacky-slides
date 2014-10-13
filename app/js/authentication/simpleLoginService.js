@@ -129,7 +129,7 @@ define(
 									.$set(
 										user.id,
 										{
-											displayName: user.email,
+											displayName: user.displayName,
 											provider: user.provider,
 											email: user.email
 										}
