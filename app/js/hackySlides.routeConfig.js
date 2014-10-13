@@ -17,11 +17,11 @@ define(
 		routeConfig.$inject = [
 			'$stateProvider',
 			'$urlRouterProvider',
-			'routeResolverProvider',
 			'$controllerProvider',
 			'$compileProvider',
 			'$filterProvider',
-			'$provide'
+			'$provide',
+			'routeResolverProvider'
 		];
 
 		return app
@@ -30,12 +30,14 @@ define(
 		function routeConfig (
 			$stateProvider,
 			$urlRouterProvider,
-			routeResolver,
 			$controllerProvider,
 			$compileProvider,
 			$filterProvider,
-			$provide
+			$provide,
+			routeResolver
 		) {
+
+			getCurrentUser.$inject = ['SimpleLoginService'];
 
 			// using register to tell angularjs to load and register in run time
 			app.register =
@@ -74,6 +76,7 @@ define(
 						templateUrl: 'partials/dashboard/dashboard.html',
 						controller: 'DashboardCtrl as dashboard',
 						resolve: {
+							currentUser: getCurrentUser,
 							resolveRouteCtrl: routeResolver
 								.route
 								.resolve(
@@ -135,6 +138,10 @@ define(
 						}
 					}
 				);
+
+			function getCurrentUser (SimpleLoginService) {
+				return SimpleLoginService.getCurrentUser();
+			}
 		}
 	}
 );

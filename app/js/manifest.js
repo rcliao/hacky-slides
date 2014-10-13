@@ -30,6 +30,9 @@ require.config({
 		// markdown parser by `marked`
 		'marked': '../libs/marked/lib/marked',
 
+		// moment.js
+		'moment': '../libs/moment/moment',
+
 		// custom modules
 		'semanticUiWidgets': 'widgets/semanticUiWidgets.module',
 		'semanticUiSideBar': 'widgets/semanticSideBar'
