@@ -11,7 +11,8 @@ define(
 		NoteEditorCtrl.$inject =
 			[
 				'$scope',
-				'$sce'
+				'$sce',
+				'firebaseReferenceService'
 			];
 
 		return app
@@ -20,7 +21,8 @@ define(
 
 		function NoteEditorCtrl (
 			$scope,
-			$sce
+			$sce,
+			firebaseReferenceService
 		) {
 			var vm = this;
 

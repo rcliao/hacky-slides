@@ -102,6 +102,23 @@ define(
 					}
 				)
 				.state(
+					'presentation',
+					{
+						url: 'presentation/:id',
+						templateUrl: 'partials/presentation/presentation.html',
+						controller: 'PresentationCtrl as presentation',
+						resolve: {
+							resolveRouteCtrl: routeResolver
+								.route
+								.resolve(
+									[
+										'./presentation/presentationCtrl'
+									]
+								)
+						}
+					}
+				)
+				.state(
 					'dashboard.noteEditor',
 					{
 						url: '/note/editor',
