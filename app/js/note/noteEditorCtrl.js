@@ -5,8 +5,7 @@ define(
 		'hackySlides.module',
 		'marked',
 		'moment',
-		'ace',
-		'reveal'
+		'ace'
 	],
 	function (app, marked, moment, ace) {
 		'use strict';

@@ -24,7 +24,7 @@
 						onChange: noteEditor.aceOnChange
 					}"
 					ng-model="noteEditor.personalWeeklyNote.note"
-					style="height: 40em;">
+					style="min-height: 40em;">
 				</div>
 			</div>
 		</div>
@@ -52,13 +52,13 @@
 				</div>
 			</h2>
 
-			<div class="ui inverted attached segment" style="height: 40em;"
+			<div class="ui inverted attached segment" style="min-height: 40em;"
 				ng-bind-html="noteEditor.parseMarkdown()"
 				ng-if="noteEditor.previewMode === 'html'">
 			</div>
 			<div class="ui inverted attached segment" style="height: 40em;"
 				ng-if="noteEditor.previewMode === 'presentation'">
-
+				<revealjs-slides></revealjs-slides>
 			</div>
 		</div>
 	</div>

@@ -10,6 +10,9 @@ define(
 		// services
 		'./authentication/simpleLoginService',
 		'./services/firebaseReferenceService',
+
+		// directives
+		'revealjsSlides'
 	],
 	function(app) {
 		'use strict';
@@ -17,6 +20,7 @@ define(
 		routeConfig.$inject = [
 			'$stateProvider',
 			'$urlRouterProvider',
+			'$locationProvider',
 			'$controllerProvider',
 			'$compileProvider',
 			'$filterProvider',
@@ -30,6 +34,7 @@ define(
 		function routeConfig (
 			$stateProvider,
 			$urlRouterProvider,
+			$locationProvider,
 			$controllerProvider,
 			$compileProvider,
 			$filterProvider,
@@ -90,7 +95,7 @@ define(
 				.state(
 					'dashboard.summary',
 					{
-						url: 'dashboard/summary',
+						url: 'summary',
 						templateUrl: 'partials/dashboard/summary.html',
 						controller: 'SummaryCtrl as summary',
 						resolve: {
@@ -107,7 +112,7 @@ define(
 				.state(
 					'presentation',
 					{
-						url: 'presentation/:id',
+						url: '/presentation/:id',
 						templateUrl: 'partials/presentation/presentation.html',
 						controller: 'PresentationCtrl as presentation',
 						resolve: {

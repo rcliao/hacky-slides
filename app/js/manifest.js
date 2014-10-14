@@ -36,10 +36,14 @@ require.config({
 
 		// revealjs for slides presentaiton
 		'reveal': '../libs/reveal.js/js/reveal',
+		'reveal-head': '../libs/reveal.js/lib/js/head.min',
 
 		// custom modules
 		'semanticUiWidgets': 'widgets/semanticUiWidgets.module',
-		'semanticUiSideBar': 'widgets/semanticSideBar'
+		'semanticUiSideBar': 'widgets/semanticSideBar',
+		'revealjsSlides': 'widgets/revealjsSlides',
+
+		'hackySlides.module': 'hackySlides.module'
 	},
 	shim: {
 		'angular': {
@@ -71,6 +75,10 @@ require.config({
 		},
 		'ace.keybinding-vim': {
 			deps: ['ace']
+		},
+		'reveal': {
+			exports: 'Reveal',
+			deps: ['reveal-head']
 		}
 	}
 });
