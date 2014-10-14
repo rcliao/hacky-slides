@@ -4,9 +4,10 @@ define(
 	[
 		'hackySlides.module',
 		'marked',
-		'moment'
+		'moment',
+		'ace'
 	],
-	function (app, marked, moment) {
+	function (app, marked, moment, ace) {
 		'use strict';
 
 		NoteEditorCtrl.$inject =
@@ -33,22 +34,21 @@ define(
 
 			// for keeping reference to the editor
 			var _editor = null;
-			var _session = null;
 
 			var currentWeekId = moment().week() + '-' + moment().year();
 			var template =
 				'# ' + currentUser.displayName + '\n' +
 				'\n' +
-				'## This Week \n' +
-				'    1. Working on feature 1 \n' +
-				'    2. Fixing bugs for feature 2 \n' +
-				'    3. Assist someone for feature 3 \n' +
-				'    4. Code review for feature 4 \n' +
-				'## Challenges \n' +
-				'    1. Waiting the code review for feature 1 \n' +
-				'    2. Researching for something \n' +
-				'## Next Week \n' +
-				'    1. Continue with feature 1 \n' +
+				'## This Week\n' +
+				'    1. Working on feature 1\n' +
+				'    2. Fixing bugs for feature 2\n' +
+				'    3. Assist someone for feature 3\n' +
+				'    4. Code review for feature 4\n' +
+				'## Challenges\n' +
+				'    1. Waiting the code review for feature 1\n' +
+				'    2. Researching for something\n' +
+				'## Next Week\n' +
+				'    1. Continue with feature 1\n' +
 				'    2. Code review for feature 101\n';
 
 			// we will get/set the weekly note based onthe week number and year
@@ -63,6 +63,7 @@ define(
 			.$bindTo($scope, 'personalWeeklyNote');
 
 			vm.vimMode = false;
+			vm.previewMode = 'html';
 
 			// preprocessors
 			initNotes();
@@ -130,9 +131,6 @@ define(
 
 			function aceOnLoaded (editor) {
 				_editor = editor;
-				_session = editor.getSession();
-				_editor.setKeyboardHandler('ace/keyboard/vim');
-				_editor.setKeyboardHandler('');
 			}
 
 			function toggleVimMode () {
@@ -141,8 +139,7 @@ define(
 				if (vm.vimMode) {
 					_editor.setKeyboardHandler('ace/keyboard/vim');
 				} else {
-					// empty string means default keyboard binding
-					_editor.setKeyboardHandler('');
+					_editor.setKeyboardHandler(null);
 				}
 			}
 		}

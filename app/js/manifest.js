@@ -26,6 +26,7 @@ require.config({
 
 		// ACE editor
 		'ace': '../libs/ace-builds/src-min-noconflict/ace',
+		'ace.keybinding-vim': '../libs/ace-builds/src-min-noconflict/keybinding-vim',
 
 		// markdown parser by `marked`
 		'marked': '../libs/marked/lib/marked',
@@ -54,7 +55,7 @@ require.config({
 			deps: ['angular']
 		},
 		'angular.ui-ace': {
-			deps: ['angular', 'ace']
+			deps: ['angular', 'ace', 'ace.keybinding-vim']
 		},
 		'angular-firebase': {
 			deps: ['angular', 'firebase']
@@ -64,6 +65,9 @@ require.config({
 		},
 		'semantic-ui': {
 			deps: ['jquery']
+		},
+		'ace.keybinding-vim': {
+			deps: ['ace']
 		}
 	}
 });

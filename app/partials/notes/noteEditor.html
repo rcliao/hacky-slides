@@ -3,6 +3,16 @@
 		<div class="six wide column">
 			<h2 class="ui inverted black aligned center header attached top">
 				Editor
+				<div class="ui icon floated right buttons">
+					<div class="ui button"
+						tooltip-placement="bottom" tooltip="Very best vim mode!"
+						ng-click="noteEditor.toggleVimMode()"
+						ng-class="{
+							'red': noteEditor.vimMode
+						}">
+						<i class="icon terminal"></i>
+					</div>
+				</div>
 			</h2>
 			<div class="ui inverted segment attached">
 				<div ui-ace="{
@@ -10,7 +20,8 @@
 						showGutter: true,
 						theme: 'twilight',
 						mode: 'markdown',
-						onLoad: noteEditor.aceOnLoaded
+						onLoad: noteEditor.aceOnLoaded,
+						onChange: noteEditor.aceOnChange
 					}"
 					ng-model="personalWeeklyNote.note"
 					style="height: 40em;">
@@ -21,28 +32,33 @@
 		<div class="ten wide column">
 			<h2 class="ui aligned inverted black center header attached top">
 				Preview
+				<div class="ui icon floated right buttons">
+					<div class="ui button"
+						tooltip-placement="bottom" tooltip="Html mode"
+						ng-click="noteEditor.previewMode = 'html';"
+						ng-class="{
+							'red': noteEditor.previewMode === 'html'
+						}">
+						<i class="icon code"></i>
+					</div>
+					<div class="ui button"
+						 tooltip-placement="bottom" tooltip="Presentation mode"
+						 ng-click="noteEditor.previewMode = 'presentation'"
+						 ng-class="{
+							'red': noteEditor.previewMode === 'presentation'
+						 }">
+						<i class="icon browser"></i>
+					</div>
+				</div>
 			</h2>
 
 			<div class="ui inverted attached segment" style="height: 40em;"
-				ng-bind-html="noteEditor.parseMarkdown()">
+				ng-bind-html="noteEditor.parseMarkdown()"
+				ng-if="noteEditor.previewMode === 'html'">
 			</div>
-		</div>
-	</div>
-</div>
+			<div class="ui inverted attached segment" style="height: 40em;"
+				ng-if="noteEditor.previewMode === 'presentation'">
 
-<div class="ui mobile only one column grid">
-	<div class="column">
-		<div class="ui inverted segment attached">
-			<div ui-ace="{
-					useWrapMode : true,
-					showGutter: true,
-					theme: 'twilight',
-					mode: 'markdown',
-					onLoad: noteEditor.aceOnLoaded,
-					onChange: aceChanged
-				}"
-				ng-model="noteEditor.note"
-				style="height: 40em;">
 			</div>
 		</div>
 	</div>
