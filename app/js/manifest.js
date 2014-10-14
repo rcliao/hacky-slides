@@ -34,6 +34,9 @@ require.config({
 		// moment.js
 		'moment': '../libs/moment/moment',
 
+		// revealjs for slides presentaiton
+		'reveal': '../libs/reveal.js/js/reveal',
+
 		// custom modules
 		'semanticUiWidgets': 'widgets/semanticUiWidgets.module',
 		'semanticUiSideBar': 'widgets/semanticSideBar'
