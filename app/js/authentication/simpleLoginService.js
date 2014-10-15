@@ -114,6 +114,9 @@ define(
 							.$broadcast(
 								'simpleLoginService:notAuthenticatedAsEdlioUser'
 							);
+						simpleLogin.logout();
+
+						break;
 					}
 
 					$firebase(
