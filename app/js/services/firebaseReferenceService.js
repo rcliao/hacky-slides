@@ -12,12 +12,14 @@ define(
 			var source = new Firebase('https://hacky-slides.firebaseio.com/');
 			var weeklyNotes = source.child('weeklyNotes');
 			var currentWeekId = moment().week() + '-' + moment().year();
+			var lastWeekId = (moment().week()-1) + '-' + moment().year();
 
 			var firebaseRefDef = {
 				source: source,
 				users: source.child('users'),
 				weeklyNotes: weeklyNotes,
 				currentWeeklyNotes: weeklyNotes.child(currentWeekId),
+				lastWeeklyNotes: weeklyNotes.child(lastWeekId),
 				getPersonalWeeklyNote: getPersonalWeeklyNote
 			}
 

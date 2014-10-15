@@ -3,20 +3,13 @@
 		<div class="ui red header attached top">
 			Summary from Last Week
 		</div>
-		<div class="ui segment attached">
-			<h1 class="ui header">
-				Eric's Note
-			</h1>
+		<div class="ui segment attached" style="height: 50em">
+			<revealjs-presentation id="presentation_container" slide-sections="summary.weeklyNotes"
+				ng-if="summary.weeklyNotes.length > 1">
+			</revealjs-presentation>
 
-			<h3 class="ui header attached top">
-				Last Week
-			</h3>
-
-			<div class="ui segment attached">
-				<ul>
-					<li>Continue Quick Post</li>
-					<li>Help News Polishment</li>
-				</ul>
+			<div class="ui red message" ng-if="summary.weeklyNotes.length === 1">
+				No notes was recorded last week
 			</div>
 		</div>
 	</div>
