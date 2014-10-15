@@ -114,31 +114,30 @@ define(
 							.$broadcast(
 								'simpleLoginService:notAuthenticatedAsEdlioUser'
 							);
-						simpleLogin.logout();
-
-						break;
+						simpleLogin.$logout();
+					} else {
+						$firebase(
+							existingUserRef.child(user.id)
+						)
+							.$asObject()
+							.$loaded()
+							.then(function(existingUser) {
+								if(!existingUser.displayName) {
+									// save new user's profile into Firebase so we can
+									// list users, use them in security rules, and show profiles
+									$firebase(existingUserRef)
+										.$set(
+											user.id,
+											{
+												displayName: user.displayName,
+												provider: user.provider,
+												email: user.email
+											}
+										);
+								}
+							});
 					}
 
-					$firebase(
-						existingUserRef.child(user.id)
-					)
-						.$asObject()
-						.$loaded()
-						.then(function(existingUser) {
-							if(!existingUser.displayName) {
-								// save new user's profile into Firebase so we can
-								// list users, use them in security rules, and show profiles
-								$firebase(existingUserRef)
-									.$set(
-										user.id,
-										{
-											displayName: user.displayName,
-											provider: user.provider,
-											email: user.email
-										}
-									);
-							}
-						});
 
 				} else {
 					$log.error('wtf');
