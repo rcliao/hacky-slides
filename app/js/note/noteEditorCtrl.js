@@ -39,31 +39,13 @@ define(
 
 			// we will get/set the weekly note based onthe week number and year
 			var currentWeekId = moment().week() + '-' + moment().year();
-			var template =
-				'# ' + currentUser.displayName + '\n' +
-				'\n' +
-				'## This Week\n' +
-				'    1. Working on feature 1\n' +
-				'    2. Fixing bugs for feature 2\n' +
-				'    3. Assist someone for feature 3\n' +
-				'    4. Code review for feature 4\n' +
-				'\n\n' +
-				'## Challenges\n' +
-				'    1. Waiting the code review for feature 1\n' +
-				'    2. Researching for something\n' +
-				'\n\n' +
-				'## Next Week\n' +
-				'    1. Continue with feature 1\n' +
-				'    2. Code review for feature 101\n';
-			var weeklyNotesRef = firebaseReferenceService
-				.weeklyNotes
-				.child(currentWeekId);
-			var currentWeeklyNoteRef = firebaseReferenceService
-				.weeklyNotes
-				.child(currentWeekId)
-				.child('notes')
-				.child(currentUser.displayName);
-			var currentWeeklyNoteFirebaseRef = $firebase(currentWeeklyNoteRef);
+			var template = slidesService
+				.getPersonalNoteTemplate(currentUser.displayName);
+			var currentWeeklyNotes = firebaseReferenceService
+				.currentWeeklyNotes;
+			var personalWeeklyNoteRef = firebaseReferenceService
+				.getPersonalWeeklyNote(currentUser.displayName);
+			var currentWeeklyNoteFirebaseRef = $firebase(personalWeeklyNoteRef);
 
 			$scope.$watch(
 				function() {
@@ -90,16 +72,17 @@ define(
 			vm.aceOnLoaded = aceOnLoaded;
 			vm.aceOnChange = aceOnChange;
 			vm.toggleVimMode = toggleVimMode;
+			vm.requestFullscreen = requestFullscreen;
 
 			/**
 			 * This function initializes the note when it's not being in the
 			 * database before.
 			 */
 			function initNotes () {
-				weeklyNotesRef
+				currentWeeklyNotes
 					.once('value', initNote);
 
-				currentWeeklyNoteRef
+				personalWeeklyNoteRef
 					.once('value', initPersonalNote);
 
 				// if there is no note for this week, create one
@@ -216,6 +199,23 @@ define(
 				}
 
 				_editor.focus();
+			}
+
+			/**
+			 * Request full screen mode for the presentaiton
+			 */
+			function requestFullscreen () {
+				var elem = document.getElementsByClassName("reveal")[0];
+
+				if (elem.requestFullscreen) {
+					elem.requestFullscreen();
+				} else if (elem.msRequestFullscreen) {
+					elem.msRequestFullscreen();
+				} else if (elem.mozRequestFullScreen) {
+					elem.mozRequestFullScreen();
+				} else if (elem.webkitRequestFullscreen) {
+					elem.webkitRequestFullscreen();
+				}
 			}
 		}
 	}

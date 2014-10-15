@@ -111,7 +111,7 @@ define(
 					}
 				)
 				.state(
-					'presentation',
+					'dashboard.presentation',
 					{
 						url: '/presentation/:id',
 						templateUrl: 'partials/presentation/presentation.html',

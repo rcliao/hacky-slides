@@ -9,9 +9,10 @@
 				ui-sref-active="active">
 				Note Editor
 			</a>
-			<div class="item">
+			<a class="item" ui-sref="dashboard.presentation"
+				ui-sref-active="active">
 				Present Note
-			</div>
+			</a>
 		</div>
 	</div>
 
@@ -19,25 +20,3 @@
 		<div ui-view></div>
 	</div>
 </section>
-
-<section class="ui mobile only doubling one column grid"
-	ng-swipe-left="sidebarMenuOpen = false;"
-	ng-swipe-right="sidebarMenuOpen = true;">
-	<div class="column">
-		<div ui-view></div>
-	</div>
-</section>
-
-<div class="ui mobile only red vertical demo sidebar menu" semantic-side-bar is-open="sidebarMenuOpen">
-	<div class="item" ui-sref="dashboard.summary"
-		ui-sref-active="active">
-		Last Week's Summary
-	</div>
-	<a class="item" ui-sref="dashboard.noteEditor"
-		ui-sref-active="active">
-		Note Editor
-	</a>
-	<div class="item">
-		Present Note
-	</div>
-</div>
