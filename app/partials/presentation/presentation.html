@@ -1,16 +1,14 @@
-<div class="ui computer tablet only one column grid">
-	<div class="column">
-		<h2 class="ui aligned inverted black center header attached top">
-			Presentation
+<div class="ui one column grid inherit-height">
+	<div class="column inherit-height">
+		<header class="ui aligned inverted black center header attached top message clearfix">
 			<div class="ui floated right icon button"
 				tooltip-placement="bottom" tooltip="Fullscreen mode"
 				ng-click="presentation.requestFullScreen()">
 				<i class="fullscreen icon"></i>
 			</div>
-		</h2>
+		</header>
 
-		<div class="ui inverted attached segment"
-			style="height: 40em;">
+		<div class="ui inverted attached segment body-inner-container">
 			<revealjs-presentation id="presentation_container" slide-sections="presentation.weeklyNotes">
 			</revealjs-presentation>
 		</div>

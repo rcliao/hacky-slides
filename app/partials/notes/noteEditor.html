@@ -1,70 +1,98 @@
-<div class="ui computer tablet only grid">
-	<div class="ui row">
-		<div class="six wide column">
-			<h2 class="ui inverted black aligned center header attached top">
-				Editor
-				<div class="ui icon floated right buttons">
-					<div class="ui button"
-						tooltip-placement="bottom" tooltip="Very best vim mode!"
-						ng-click="noteEditor.toggleVimMode()"
-						ng-class="{
-							'red': noteEditor.vimMode
-						}">
-						<i class="icon terminal"></i>
-					</div>
+<div class="ui tablet computer only grid inherit-height">
+	<div class="six wide column inherit-height">
+		<header class="ui inverted black aligned center header attached top message clearfix">
+			<div class="ui icon floated right buttons">
+				<div class="ui button"
+					tooltip-placement="bottom" tooltip="Very best vim mode!"
+					ng-click="noteEditor.toggleVimMode()"
+					ng-class="{
+						'red': noteEditor.vimMode
+					}">
+					<i class="icon terminal"></i>
 				</div>
-			</h2>
-			<div class="ui inverted segment attached">
-				<div ui-ace="{
-						useWrapMode : true,
-						showGutter: true,
-						theme: 'twilight',
-						mode: 'markdown',
-						onLoad: noteEditor.aceOnLoaded,
-						onChange: noteEditor.aceOnChange
-					}"
-					ng-model="noteEditor.personalWeeklyNote.note"
-					style="min-height: 40em;">
-				</div>
+			</div>
+		</header>
+
+		<div class="ui inverted segment attached body-inner-container">
+			<div class="inherit-height"
+				ui-ace="{
+					useWrapMode : true,
+					showGutter: true,
+					theme: 'twilight',
+					mode: 'markdown',
+					onLoad: noteEditor.aceOnLoaded,
+					onChange: noteEditor.aceOnChange
+				}"
+				ng-model="noteEditor.personalWeeklyNote.note">
 			</div>
 		</div>
+	</div>
 
-		<div class="ten wide column">
-			<h2 class="ui aligned inverted black center header attached top">
-				Preview
-				<div class="ui icon floated right buttons">
-					<div class="ui button"
-						tooltip-placement="bottom" tooltip="Html mode"
-						ng-click="noteEditor.previewMode = 'html';"
-						ng-class="{
-							'red': noteEditor.previewMode === 'html'
-						}">
-						<i class="icon code"></i>
-					</div>
-					<div class="ui button"
-						 tooltip-placement="bottom" tooltip="Presentation mode"
-						 ng-click="noteEditor.previewMode = 'presentation'"
-						 ng-class="{
-							'red': noteEditor.previewMode === 'presentation'
-						 }">
-						<i class="icon browser"></i>
-					</div>
-					<div class="ui button"
-						tooltip-placement="bottom" tooltip="Fullscreen mode"
-						ng-click="noteEditor.requestFullscreen()">
-						<i class="fullscreen icon"></i>
-					</div>
+	<div class="ten wide column inherit-height">
+		<header class="ui aligned inverted black center header attached top message clearfix">
+			<div class="ui icon floated right buttons">
+				<div class="ui button"
+					tooltip-placement="bottom" tooltip="Html mode"
+					ng-click="noteEditor.previewMode = 'html';"
+					ng-class="{
+						'red': noteEditor.previewMode === 'html'
+					}">
+					<i class="icon code"></i>
 				</div>
-			</h2>
-
-			<div class="ui inverted attached segment" style="min-height: 40em;"
-				ng-bind-html="noteEditor.parseMarkdown()"
-				ng-if="noteEditor.previewMode === 'html'">
+				<div class="ui button"
+					 tooltip-placement="bottom" tooltip="Presentation mode"
+					 ng-click="noteEditor.previewMode = 'presentation'"
+					 ng-class="{
+						'red': noteEditor.previewMode === 'presentation'
+					 }">
+					<i class="icon browser"></i>
+				</div>
+				<div class="ui button"
+					tooltip-placement="bottom" tooltip="Fullscreen mode"
+					ng-click="noteEditor.requestFullscreen()">
+					<i class="fullscreen icon"></i>
+				</div>
 			</div>
-			<div class="ui inverted attached segment" style="height: 40em;"
-				ng-if="noteEditor.previewMode === 'presentation'">
-				<revealjs-presentation slide-sections="noteEditor.slideSections">
-				</revealjs-presentation>
+		</header>
+
+		<div class="ui inverted attached segment body-inner-container"
+			ng-bind-html="noteEditor.parseMarkdown()"
+			ng-if="noteEditor.previewMode === 'html'">
+		</div>
+		<div class="ui inverted attached segment body-inner-container"
+			ng-if="noteEditor.previewMode === 'presentation'">
+			<revealjs-presentation slide-sections="noteEditor.slideSections">
+			</revealjs-presentation>
+		</div>
+	</div>
+</div>
+
+<div class="ui mobile only one column grid inherit-height">
+	<div class="column inherit-height">
+		<header class="ui inverted black aligned center header attached top message clearfix">
+			<div class="ui icon floated right buttons">
+				<div class="ui button"
+					tooltip-placement="bottom" tooltip="Very best vim mode!"
+					ng-click="noteEditor.toggleVimMode()"
+					ng-class="{
+						'red': noteEditor.vimMode
+					}">
+					<i class="icon terminal"></i>
+				</div>
+			</div>
+		</header>
+
+		<div class="ui inverted segment attached body-inner-container">
+			<div ui-ace="{
+					useWrapMode : true,
+					showGutter: true,
+					theme: 'twilight',
+					mode: 'markdown',
+					onLoad: noteEditor.aceOnLoaded,
+					onChange: noteEditor.aceOnChange
+				}"
+				ng-model="noteEditor.personalWeeklyNote.note"
+				style="min-height: 40em;">
 			</div>
 		</div>
 	</div>

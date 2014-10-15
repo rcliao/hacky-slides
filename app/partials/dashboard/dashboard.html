@@ -1,9 +1,9 @@
-<section class="ui computer tablet only divided grid">
-	<div class="three wide column">
-		<div class="ui vertical fluid red menu">
+<section class="ui one column grid inherit-height">
+	<div class="column">
+		<div class="ui fluid three item red menu">
 			<a class="item" ui-sref="dashboard.summary"
 				ui-sref-active-eq="active">
-				Last Week's Summary
+				Summary
 			</a>
 			<a class="item" ui-sref="dashboard.noteEditor"
 				ui-sref-active="active">
@@ -11,12 +11,12 @@
 			</a>
 			<a class="item" ui-sref="dashboard.presentation"
 				ui-sref-active="active">
-				Present Note
+				Presentation
 			</a>
 		</div>
 	</div>
 
-	<div class="thirteen wide column">
-		<div ui-view></div>
+	<div class="column body-container">
+		<div class="inherit-height" ui-view></div>
 	</div>
 </section>

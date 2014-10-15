@@ -84,27 +84,29 @@ body {
   animation: bounce 1s ease-in-out;
 }
 
-/* mobile css */
-/* Smartphones (portrait and landscape) ----------- */
-@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
-/* Styles */
-  html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
+.inherit-height {
+  height: 100%;
+}
 
-  section#main_views {
-    height: 100%;
-  }
+#main_views {
+  height: 100%;
+}
 
-  .ui.mobile.only {
-    height: 100%;
-  }
+.body-container {
+  height: calc(100% - 37px);
+}
 
-  .ui.grid > .column {
-    margin-top: 0;
-  }
+.body-inner-container {
+  height: calc(100% - 50px);
+}
+
+.ui.grid {
+  margin: 0;
+}
+
+.ui.grid > .column {
+  margin: 0;
+  padding: 0;
 }
 
 /* Animations with Animate.css */
