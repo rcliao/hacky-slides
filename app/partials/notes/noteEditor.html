@@ -58,7 +58,8 @@
 			</div>
 			<div class="ui inverted attached segment" style="height: 40em;"
 				ng-if="noteEditor.previewMode === 'presentation'">
-				<revealjs-slides></revealjs-slides>
+				<revealjs-presentation slide-sections="noteEditor.slideSections">
+				</revealjs-presentation>
 			</div>
 		</div>
 	</div>

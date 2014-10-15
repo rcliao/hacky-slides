@@ -3,18 +3,24 @@
 define(
 	[
 		'hackySlides.module',
-		'reveal'
+		'reveal',
+		'jquery'
 	],
-	function(app) {
+	function(app, $) {
 		'use strict';
 
-		return app
-			.directive('revealjsSlides', revealjsSlides);
+		revealjsPresentation.$inject = ['$timeout'];
 
-		function revealjsSlides () {
+		return app
+			.directive('revealjsPresentation', revealjsPresentation);
+
+		function revealjsPresentation ($timeout) {
 			var directiveDefinition = {
 				restrict: 'E',
 				templateUrl: 'js/widgets/templates/revealjsSlidesTemplate.html',
+				scope: {
+					slideSections: '=slideSections'
+				},
 				link: linkFunction
 			};
 
@@ -22,29 +28,42 @@ define(
 
 			function linkFunction (scope, element) {
 
-				// Full list of configuration options available here:
-				// https://github.com/hakimel/reveal.js#configuration
-				Reveal.initialize({
-					controls: true,
-					progress: true,
-					history: false, // a trick to disable the routing with angular
-					center: true,
-					loop: false,
-					embedded: true,
+				element.ready(initReveal);
 
-					theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-					transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+				scope.$watch(
+					function() {
+						return scope.slideSections;
+					},
+					function() {
+						element.ready(initReveal);
+					}
+				);
 
-					// Parallax scrolling
-					// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
-					// parallaxBackgroundSize: '2100px 900px',
+				function initReveal () {
+					// Full list of configuration options available here:
+					// https://github.com/hakimel/reveal.js#configuration
+					Reveal.initialize({
+						controls: false,
+						progress: false,
+						loop: false,
+						history: false, // a trick to disable the routing with angular
+						fragment: true,
+						center: true,
+						embedded: true,
 
-					// Optional libraries used to extend on reveal.js
-					dependencies: [
-						{ src: 'libs/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-						{ src: 'libs/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } }
-					]
-				});
+						theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+						transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+						// Parallax scrolling
+						// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+						// parallaxBackgroundSize: '2100px 900px',
+
+						// Optional libraries used to extend on reveal.js
+						dependencies: [
+							{ src: 'libs/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } }
+						]
+					});
+				}
 			}
 		}
 	}

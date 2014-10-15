@@ -16,6 +16,7 @@ define(
 				'$sce',
 				'$firebase',
 				'firebaseReferenceService',
+				'slidesService',
 				'currentUser'
 			];
 
@@ -28,6 +29,7 @@ define(
 			$sce,
 			$firebase,
 			firebaseReferenceService,
+			slidesService,
 			currentUser
 		) {
 			var vm = this;
@@ -35,6 +37,7 @@ define(
 			// for keeping reference to the editor
 			var _editor = null;
 
+			// we will get/set the weekly note based onthe week number and year
 			var currentWeekId = moment().week() + '-' + moment().year();
 			var template =
 				'# ' + currentUser.displayName + '\n' +
@@ -44,9 +47,11 @@ define(
 				'    2. Fixing bugs for feature 2\n' +
 				'    3. Assist someone for feature 3\n' +
 				'    4. Code review for feature 4\n' +
+				'\n\n' +
 				'## Challenges\n' +
 				'    1. Waiting the code review for feature 1\n' +
 				'    2. Researching for something\n' +
+				'\n\n' +
 				'## Next Week\n' +
 				'    1. Continue with feature 1\n' +
 				'    2. Code review for feature 101\n';
@@ -58,9 +63,18 @@ define(
 				.child(currentWeekId)
 				.child('notes')
 				.child(currentUser.displayName);
-
-			// we will get/set the weekly note based onthe week number and year
 			var currentWeeklyNoteFirebaseRef = $firebase(currentWeeklyNoteRef);
+
+			$scope.$watch(
+				function() {
+					if (vm.personalWeeklyNote) {
+						return vm.personalWeeklyNote.note;
+					} else {
+						return '';
+					}
+				},
+				parseMarkdownToSlides
+			);
 
 			vm.vimMode = false;
 			vm.previewMode = 'html';
@@ -136,6 +150,28 @@ define(
 					return $sce.trustAsHtml(marked(vm.personalWeeklyNote.note));
 				} else {
 					return $sce.trustAsHtml('');
+				}
+			}
+
+			function parseMarkdownToSlides (newNoteValue) {
+				if (newNoteValue) {
+					vm.slideSections = slidesService
+						.parseMarkdownToSlides(newNoteValue)
+						.map(trustEachSlide);
+				} else {
+					vm.slideSections = [];
+				}
+
+				function trustEachSlide (slideSection) {
+					return {
+						slides: slideSection
+							.slides
+							.map(trustAsHtmlInAngular)
+					};
+				}
+
+				function trustAsHtmlInAngular (html) {
+					return $sce.trustAsHtml(html);
 				}
 			}
 

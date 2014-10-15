@@ -10,6 +10,7 @@ define(
 		// services
 		'./authentication/simpleLoginService',
 		'./services/firebaseReferenceService',
+		'./services/slidesService',
 
 		// directives
 		'revealjsSlides'
