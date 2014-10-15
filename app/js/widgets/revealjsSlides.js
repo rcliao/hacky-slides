@@ -28,36 +28,40 @@ define(
 
 			function linkFunction (scope, element) {
 
-				element.ready(initReveal);
+				element
+					.ready(initReveal);
 
 				scope.$watch(
 					function() {
 						return scope.slideSections;
 					},
 					function() {
-						element.ready(initReveal);
+						element
+							.ready(initReveal);
 					}
 				);
 
 				function initReveal () {
-					// Full list of configuration options available here:
-					// https://github.com/hakimel/reveal.js#configuration
-					Reveal.initialize({
-						controls: false,
-						progress: false,
-						loop: false,
-						history: false, // a trick to disable the routing with angular
-						fragment: true,
-						center: true,
-						embedded: true,
+					$timeout(function() {
+						// Full list of configuration options available here:
+						// https://github.com/hakimel/reveal.js#configuration
+						Reveal.initialize({
+							controls: true,
+							progress: true,
+							loop: false,
+							history: false, // a trick to disable the routing with angular
+							fragment: true,
+							center: true,
+							embedded: true,
 
-						theme: 'default', // available themes are in /css/theme
-						transition: 'default', // default/cube/page/concave/zoom/linear/fade/none
+							theme: 'default', // available themes are in /css/theme
+							transition: 'default', // default/cube/page/concave/zoom/linear/fade/none
 
-						// Optional libraries used to extend on reveal.js
-						dependencies: [
-							{ src: 'libs/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } }
-						]
+							// Optional libraries used to extend on reveal.js
+							dependencies: [
+								{ src: 'libs/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } }
+							]
+						});
 					});
 				}
 			}
