@@ -61,7 +61,7 @@ define(
 			 * Request full screen mode for the presentaiton
 			 */
 			function requestFullScreen () {
-				var elem = document.getElementById("presentation_container");
+				var elem = document.getElementsByClassName("reveal")[0];
 
 				if (elem.requestFullscreen) {
 					elem.requestFullscreen();

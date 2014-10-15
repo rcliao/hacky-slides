@@ -44,6 +44,13 @@ body {
   text-align: left;
 }
 
+.reveal {
+  background: url(../img/edlio_logo.svg);
+  background-size: 80% 70%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 /* mobile css */
 /* Smartphones (portrait and landscape) ----------- */
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
