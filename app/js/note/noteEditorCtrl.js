@@ -137,6 +137,10 @@ define(
 				}
 			}
 
+			/**
+			 * A simple method to update the current view value from the firebase
+			 * return value
+			 */
 			function updateNote (note) {
 				vm.personalWeeklyNote = note;
 			}
@@ -153,6 +157,11 @@ define(
 				}
 			}
 
+			/**
+			 * In addition to parse to html, in order to display this html in
+			 * AngularJS, we need to set this html as the trusted source by using
+			 * $sce, this method will trust all the html.
+			 */
 			function parseMarkdownToSlides (newNoteValue) {
 				if (newNoteValue) {
 					vm.slideSections = slidesService
@@ -182,6 +191,10 @@ define(
 				_editor = editor;
 			}
 
+			/**
+			 * Manually set/store the value of user's note to firebase on every
+			 * change event by ace editor
+			 */
 			function aceOnChange (event) {
 				currentWeeklyNoteFirebaseRef
 					.$set(
