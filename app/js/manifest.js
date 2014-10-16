@@ -41,6 +41,7 @@ require.config({
 		// custom modules
 		'semanticUiWidgets': 'widgets/semanticUiWidgets.module',
 		'semanticUiSideBar': 'widgets/semanticSideBar',
+		'semanticUiDropdown': 'widgets/semanticDropdown',
 		'revealjsSlides': 'widgets/revealjsSlides',
 
 		'hackySlides.module': 'hackySlides.module'

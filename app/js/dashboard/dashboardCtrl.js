@@ -9,6 +9,9 @@ define(
 
 		DashboardCtrl.$inject =
 			[
+				'$scope',
+				'SimpleLoginService',
+				'currentUser'
 			];
 
 		return app
@@ -16,8 +19,14 @@ define(
 			.controller('DashboardCtrl', DashboardCtrl);
 
 		function DashboardCtrl (
+			$scope,
+			SimpleLoginService,
+			currentUser
 		) {
+			var vm = this;
 
+			vm.currentUser = currentUser;
+			vm.logout = SimpleLoginService.logout;
 		}
 	}
 );

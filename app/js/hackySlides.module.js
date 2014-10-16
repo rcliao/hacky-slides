@@ -22,7 +22,8 @@ define(
 
 		// custom widgets for semantic ui
 		'semanticUiWidgets',
-		'semanticUiSideBar'
+		'semanticUiSideBar',
+		'semanticUiDropdown'
 	],
 	function (angular) {
 		'use strict';
