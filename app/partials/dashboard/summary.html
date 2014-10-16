@@ -1,12 +1,18 @@
 <div class="ui one column grid inherit-height">
 	<div class="column inherit-height">
-		<div class="ui segment attached inherit-height">
+		<div class="ui inverted segment attached inherit-height">
 			<revealjs-presentation id="presentation_container" slide-sections="summary.weeklyNotes"
 				ng-if="summary.weeklyNotes.length > 1">
 			</revealjs-presentation>
 
-			<div class="ui red message" ng-if="summary.weeklyNotes.length === 1">
-				No notes was recorded last week
+			<div class="ui red icon message" ng-if="summary.weeklyNotes.length === 1">
+				<i class="warning icon"></i>
+				<div class="content">
+					<div class="header">
+						404 Note Not Found
+					</div>
+					No notes was recorded last week
+				</div>
 			</div>
 		</div>
 	</div>
