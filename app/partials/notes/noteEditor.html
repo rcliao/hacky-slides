@@ -72,18 +72,28 @@
 		<header class="ui inverted black aligned center header attached top message clearfix">
 			<div class="ui icon floated right buttons">
 				<div class="ui button"
-					tooltip-placement="bottom" tooltip="Very best vim mode!"
-					ng-click="noteEditor.toggleVimMode()"
+					tooltip-placement="bottom" tooltip="Editor mode"
+					ng-click="noteEditor.previewMode = 'code';"
 					ng-class="{
-						'red': noteEditor.vimMode
+						'red': noteEditor.previewMode === 'code'
 					}">
 					<i class="icon terminal"></i>
+				</div>
+				<div class="ui button"
+					tooltip-placement="bottom" tooltip="Html mode"
+					ng-click="noteEditor.previewMode = 'html';"
+					ng-class="{
+						'red': noteEditor.previewMode === 'html'
+					}">
+					<i class="icon code"></i>
 				</div>
 			</div>
 		</header>
 
-		<div class="ui inverted segment attached body-inner-container">
-			<div ui-ace="{
+		<div class="ui inverted segment attached body-inner-container"
+			ng-if="noteEditor.previewMode === 'code'">
+			<div class="inherit-height"
+				ui-ace="{
 					useWrapMode : true,
 					showGutter: true,
 					theme: 'twilight',
@@ -91,9 +101,13 @@
 					onLoad: noteEditor.aceOnLoaded,
 					onChange: noteEditor.aceOnChange
 				}"
-				ng-model="noteEditor.personalWeeklyNote.note"
-				style="min-height: 40em;">
+				ng-model="noteEditor.personalWeeklyNote.note">
 			</div>
+		</div>
+
+		<div class="ui inverted attached segment body-inner-container"
+			ng-bind-html="noteEditor.parseMarkdown()"
+			ng-if="noteEditor.previewMode === 'html'">
 		</div>
 	</div>
 </div>

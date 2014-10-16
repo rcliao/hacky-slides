@@ -77,7 +77,7 @@ body {
   background: url(../img/edlio_logo.svg);
   background-size: 30% 20%;
   background-repeat: no-repeat;
-  background-position: bottom right;
+  background-position: bottom left;
 
   -webkit-animation: bounce 1s ease-in-out;
   -o-animation: bounce 1s ease-in-out;
