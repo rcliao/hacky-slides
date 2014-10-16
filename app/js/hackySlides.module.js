@@ -39,6 +39,17 @@ define(
 					'firebase',
 					'semanticUi.Widgets'
 				]
-			);
+			).run(['$rootScope', '$state', '$log', function($rootScope, $state, $log) {
+				$rootScope.$on('$stateChangeError', function (event, current, previous,
+					rejection) {
+
+					$state.go('login');
+					$rootScope.criticalErrorReason = rejection;
+				});
+
+				$rootScope.$on('$stateChangeSuccess', function() {
+					$rootScope.criticalErrorReason = '';
+				});
+			}]);
 	}
 );
