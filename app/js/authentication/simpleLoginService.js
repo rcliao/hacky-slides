@@ -131,7 +131,7 @@ define(
 											{
 												displayName: user.displayName,
 												provider: user.provider,
-												email: user.email
+												email: (user.email || user.thirdPartyUserData.email)
 											}
 										);
 								}
