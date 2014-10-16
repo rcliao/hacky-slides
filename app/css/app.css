@@ -116,8 +116,6 @@ body {
     -webkit-transition: 1s all;
        -moz-transition: 1s all;
             transition: 1s all;
-
-    position: absolute;
 }
 
 #main_views.ng-enter #login_form {
