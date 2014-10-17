@@ -30,7 +30,6 @@ define(
 		) {
 			var vm = this;
 
-			vm.requestFullScreen = requestFullScreen;
 			$firebase(
 				firebaseReferenceService
 					.currentWeeklyNotes
@@ -39,6 +38,19 @@ define(
 			.$loaded()
 			.then(buildWeeklySlides);
 
+			vm.currentWeeklyNoteRef = $firebase(
+				firebaseReferenceService
+					.currentWeeklyNotes
+			);
+			vm.questionMode = 'question';
+			vm.currentQuestionId = undefined;
+
+			vm.addQuestion = addQuestion;
+			vm.requestFullScreen = requestFullScreen;
+
+			/**
+			 * Build slides with everyone's notes
+			 */
 			function buildWeeklySlides (weeklyNotes) {
 				vm.weeklyNotes = slidesService
 					.buildPresentationSlides(weeklyNotes)
@@ -54,6 +66,26 @@ define(
 
 				function trustAsHtmlInAngular (html) {
 					return $sce.trustAsHtml(html);
+				}
+			}
+
+			function toggleQuestionMode () {
+				vm.questionMode =
+					(vm.questionMode === 'question') ?
+						'answers' :
+						'question';
+			}
+
+			function addQuestion () {
+				vm.currentWeeklyNoteRef
+					.$push(
+						vm.question
+					)
+					.then(updateQuestionIdAndToggleMode);
+
+				function updateQuestionIdAndToggleMode (value) {
+					console.log(value);
+					toggleQuestionMode();
 				}
 			}
 
