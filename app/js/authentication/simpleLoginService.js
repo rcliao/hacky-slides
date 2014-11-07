@@ -147,14 +147,33 @@ define(
 			function validateUserAsEdlio (user) {
 				switch (user.provider) {
 					case 'google':
-						return user.thirdPartyUserData.hd === 'edlio.com';
+						return user.thirdPartyUserData.hd === 'edlio.com' || inWhiteList(user.email);
 					case 'github':
-						return user.thirdPartyUserData.emails.some(validateEdlioEmail);
+						return user.thirdPartyUserData.emails.some(validateEdlioEmail) || inWhiteList(user.thirdPartyUserData.email);
 				}
 
 				function validateEdlioEmail (emailObj) {
 					return endsWith(emailObj.email, '@edlio.com');
 				}
+
+				function inWhiteList (email) {
+					return $firebase(
+						existingUserRef
+							.child('whiteLists')
+							.child('emails')
+					).$asArray()
+					.$loaded()
+					.then(checkEmails);
+
+					function checkEmails (emails) {
+						return emails.some(checkEmail);
+
+						function checkEmail (userEmail) {
+							return userEmail.$value === email;
+						}
+					}
+				}
+
 			}
 
 			function endsWith(str, suffix) {
