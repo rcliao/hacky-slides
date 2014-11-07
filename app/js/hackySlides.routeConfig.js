@@ -3,6 +3,7 @@
 define(
 	[
 		'hackySlides.module',
+		'jquery',
 
 		// providers
 		'./services/routeResolverProvider',
@@ -15,7 +16,7 @@ define(
 		// directives
 		'revealjsSlides'
 	],
-	function(app) {
+	function(app, $) {
 		'use strict';
 
 		routeConfig.$inject = [
@@ -124,6 +125,11 @@ define(
 										'./presentation/presentationCtrl'
 									]
 								)
+						},
+						onExit: function(){
+							$('.ui.sidebar')
+								.sidebar('hide')
+							;
 						}
 					}
 				)

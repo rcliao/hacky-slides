@@ -20,16 +20,16 @@
             </a>
 
             <div class="content">
-              <a href="" class="author">{{summary.question.user}}</a>
+              <a href="" class="author">{{question.user}}</a>
               <div class="text">
-                {{summary.question.content}}
+                {{question.content}}
               </div>
             </div>
 
             <!-- Current comments -->
             <div class="comments">
               <div class="comment"
-                ng-repeat="comment in summary.question.comments">
+                ng-repeat="comment in question.comments">
                 <a href="" class="avatar">
                   <img src="img/edlio_logo.svg" alt="">
                 </a>
