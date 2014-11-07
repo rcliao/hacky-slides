@@ -1,20 +1,61 @@
 <div class="ui one column grid inherit-height">
-	<div class="column inherit-height">
-		<div class="ui inverted segment attached inherit-height">
-			<revealjs-presentation id="presentation_container" slide-sections="summary.weeklyNotes"
-				ng-if="summary.weeklyNotes.length > 1">
-			</revealjs-presentation>
+  <div class="column inherit-height">
+    <div class="ui inverted segment attached summary-inner-container">
+      <div class="ui segment"
+        ng-repeat="note in summary.weeklyNotes">
+        <div ng-repeat="slide in note.slides" ng-bind-html="slide">
+        </div>
+      </div>
 
-			<div class="ui red icon message" ng-if="summary.weeklyNotes.length === 1">
-				<i class="warning icon"></i>
-				<div class="content">
-					<div class="header">
-						404 Note Not Found
-					</div>
-					No notes was recorded last week
-				</div>
-			</div>
-		</div>
-	</div>
+      <div class="ui segment" ng-repeat="question in summary.questions">
+        <h2 class="ui header">
+          <i class="icon inverted circular blue comment"></i> Question
+        </h2>
+
+        <div class="ui minimal comments">
+          <div class="comment">
+            <!-- Current Question -->
+            <a href="" class="avatar">
+              <img src="img/edlio_logo.svg" alt="">
+            </a>
+
+            <div class="content">
+              <a href="" class="author">{{summary.question.user}}</a>
+              <div class="text">
+                {{summary.question.content}}
+              </div>
+            </div>
+
+            <!-- Current comments -->
+            <div class="comments">
+              <div class="comment"
+                ng-repeat="comment in summary.question.comments">
+                <a href="" class="avatar">
+                  <img src="img/edlio_logo.svg" alt="">
+                </a>
+
+                <div class="content">
+                  <a href="" class="author">{{comment.user}}</a>
+                  <div class="text">
+                    {{comment.content}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui red icon message" ng-if="summary.weeklyNotes.length === 1">
+        <i class="warning icon"></i>
+        <div class="content">
+          <div class="header">
+            404 Note Not Found
+          </div>
+          No notes was recorded last week
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>

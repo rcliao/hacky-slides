@@ -117,6 +117,11 @@ body {
   height: calc(100% - 50px);
 }
 
+.summary-inner-container {
+  overflow: auto;
+  height: calc(100%);
+}
+
 .ui.grid {
   margin: 0;
 }

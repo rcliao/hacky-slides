@@ -11,6 +11,7 @@ define(
 		'angular.ui-router',
 		'angular.ui-bootstrap',
 		'angular.ui-ace',
+		'angular.ui-utils',
 
 		// firebase related modules
 		'firebase',
@@ -37,6 +38,7 @@ define(
 					'ui.router',
 					'ui.bootstrap',
 					'ui.ace',
+					'ui.keypress',
 					'firebase',
 					'semanticUi.Widgets'
 				]
