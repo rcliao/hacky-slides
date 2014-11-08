@@ -11,6 +11,7 @@ require.config({
 		'angular.ui-router': '../libs/angular-ui-router/release/angular-ui-router',
 		'angular.ui-bootstrap': '../libs/angular-bootstrap/ui-bootstrap-tpls',
 		'angular.ui-ace': '../libs/angular-ui-ace/ui-ace',
+		'angular.ui-utils': '../libs/angular-ui-utils/ui-utils',
 
 		// firebase
 		'angular-firebase': '../libs/angularfire/dist/angularfire',
@@ -64,6 +65,9 @@ require.config({
 		},
 		'angular.ui-ace': {
 			deps: ['angular', 'ace', 'ace.keybinding-vim']
+		},
+		'angular.ui-utils': {
+			deps: ['angular']
 		},
 		'angular-firebase': {
 			deps: ['angular', 'firebase']

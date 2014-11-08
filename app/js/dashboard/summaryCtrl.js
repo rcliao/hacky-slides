@@ -31,6 +31,12 @@ define(
 			var vm = this;
 
 			vm.requestFullScreen = requestFullScreen;
+			vm.questions = $firebase(
+				firebaseReferenceService
+					.lastWeeklyNotes
+					.child('questions')
+			).$asArray();
+
 			$firebase(
 				firebaseReferenceService
 					.lastWeeklyNotes
@@ -38,6 +44,7 @@ define(
 			).$asArray()
 			.$loaded()
 			.then(buildWeeklySlides);
+
 
 			function buildWeeklySlides (weeklyNotes) {
 				vm.weeklyNotes = slidesService
@@ -76,25 +83,3 @@ define(
 		}
 	}
 );/*global define*/
-
-define(
-	[
-		'hackySlides.module'
-	],
-	function (app) {
-		'use strict';
-
-		SummaryCtrl.$inject =
-			[
-			];
-
-		return app
-			.register
-			.controller('SummaryCtrl', SummaryCtrl);
-
-		function SummaryCtrl (
-		) {
-
-		}
-	}
-);

@@ -1,22 +1,131 @@
 <div class="ui one column grid inherit-height">
-	<div class="column inherit-height">
-		<header class="ui aligned inverted black center header attached top message clearfix">
-			<div class="ui floated right icon buttons">
-				<div class="ui button"
-					tooltip-placement="bottom" tooltip="Q & A">
-					<i class="comment outline icon"></i>
-				</div>
-				<div class="ui button"
-					tooltip-placement="bottom" tooltip="Fullscreen mode"
-					ng-click="presentation.requestFullScreen()">
-					<i class="fullscreen icon"></i>
-				</div>
-			</div>
-		</header>
+  <div class="column inherit-height">
+    <header class="ui aligned inverted black center header attached top message clearfix">
+      <div class="ui floated right icon buttons">
+        <div class="ui button"
+          tooltip-placement="bottom" tooltip="Q & A"
+          ng-click="presentation.isQNAOpen = !presentation.isQNAOpen">
+          <i class="comment outline icon"></i>
+        </div>
+        <div class="ui button"
+          tooltip-placement="bottom" tooltip="Fullscreen mode"
+          ng-click="presentation.requestFullScreen()">
+          <i class="fullscreen icon"></i>
+        </div>
+      </div>
+    </header>
 
-		<div class="ui inverted attached segment body-inner-container">
-			<revealjs-presentation id="presentation_container" slide-sections="presentation.weeklyNotes">
-			</revealjs-presentation>
-		</div>
-	</div>
+    <div class="ui inverted attached segment body-inner-container">
+      <revealjs-presentation id="presentation_container"
+        slide-sections="presentation.weeklyNotes">
+      </revealjs-presentation>
+    </div>
+  </div>
+</div>
+
+<div class="ui red very wide styled sidebar" semantic-side-bar=""
+  is-open="presentation.isQNAOpen">
+  <div class="clearfix">
+    <div class="ui icon button basic floated right"
+      ng-click="presentation.isQNAOpen = !presentation.isQNAOpen">
+      <i class="close icon"></i>
+    </div>
+  </div>
+
+  <div class="ui red segment" ng-show="presentation.questionMode === 'question'">
+    <h3 class="ui header">
+      Q & A Section
+    </h3>
+
+    <div class="ui form">
+      <div class="field">
+        <label>Name</label>
+        <div class="ui icon input">
+          <i class="user icon"></i>
+          <input type="text" data-placeholder="Name"
+            ng-model="presentation.question.user">
+        </div>
+      </div>
+      <div class="field">
+        <label>Question</label>
+        <textarea ng-model="presentation.question.content"
+          ui-keyup="{'meta-enter':'presentation.addQuestion()'}"></textarea>
+      </div>
+      <div class="ui red fluid button"
+        ng-click="presentation.addQuestion()">
+        Add Question
+      </div>
+    </div>
+  </div>
+
+  <div class="ui segment" ng-show="presentation.questionMode === 'answers'">
+    <h2 class="ui header">
+      <i class="icon inverted circular blue comment"></i> Question
+    </h2>
+
+    <div class="ui minimal comments">
+      <div class="comment">
+        <!-- Current Question -->
+        <a href="" class="avatar">
+          <img src="img/edlio_logo.svg" alt="">
+        </a>
+
+        <div class="content">
+          <a href="" class="author">{{presentation.currentQuestion.user}}</a>
+          <div class="text">
+            {{presentation.currentQuestion.content}}
+          </div>
+        </div>
+
+        <!-- Current comments -->
+        <div class="comments">
+          <div class="comment"
+            ng-repeat="comment in presentation.currentQuestion.comments">
+            <a href="" class="avatar">
+              <img src="img/edlio_logo.svg" alt="">
+            </a>
+
+            <div class="content">
+              <a href="" class="author">{{comment.user}}</a>
+              <div class="text">
+                {{comment.content}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui fluid red button"
+      ng-click="presentation.finishQuestion()">
+      Done
+    </div>
+  </div>
+
+  <!-- Action area to add comment -->
+  <div class="ui segment" ng-show="presentation.questionMode === 'answers'">
+    <h2 class="ui header">
+      <i class="icon inverted circular blue comment"></i> Comment
+    </h2>
+
+    <div class="ui form">
+      <div class="field">
+        <label for="">Name</label>
+        <div class="ui icon input">
+          <i class="user icon"></i>
+          <input type="text" data-placeholder="Name" ng-model="presentation.currentComment.user">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="">Comment</label>
+        <textarea ng-model="presentation.currentComment.content"></textarea>
+      </div>
+
+      <div class="ui red fluid button"
+        ng-click="presentation.addComment()">
+        Add Comment
+      </div>
+    </div>
+  </div>
 </div>

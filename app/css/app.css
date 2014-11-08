@@ -68,6 +68,12 @@ body {
   /* Opera couldn't do radial gradients, then at some point they started supporting the -webkit- syntax, how it kinda does but it's kinda broken (doesn't do sizing) */
 }
 
+.truncate-one-line {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .reveal:before {
   content: '';
   position: absolute;
@@ -109,6 +115,11 @@ body {
 
 .body-inner-container {
   height: calc(100% - 50px);
+}
+
+.summary-inner-container {
+  overflow: auto;
+  height: calc(100%);
 }
 
 .ui.grid {
