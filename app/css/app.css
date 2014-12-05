@@ -131,6 +131,15 @@ body {
   padding: 0;
 }
 
+.upcoming-presentor {
+  position: absolute;
+  right: 0;
+  bottom: -5em;
+
+  font-size: 0.7em !important;
+  color: rgba(255, 255, 255, 0.2);
+}
+
 /* Animations with Animate.css */
 
 #main_views.ng-enter,
