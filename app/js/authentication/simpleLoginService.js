@@ -62,11 +62,13 @@ define(
 			function getCurrentUser () {
 				var deferred = $q.defer();
 
-				if (userAuthData) {
+				var currentUser = $firebaseAuth(ref).$getAuth();
+
+				if (currentUser) {
 					deferred.resolve(
 						$firebase(
 							existingUserRef
-								.child(userAuthData.uid)
+								.child(currentUser.uid)
 						)
 						.$asObject()
 						.$loaded()
@@ -93,7 +95,6 @@ define(
 			}
 
 			function storeUser (user) {
-				console.log(user);
 				if (user) {
 					if (!validateUserAsEdlio(user)) {
 						$rootScope
@@ -127,9 +128,7 @@ define(
 
 
 				} else {
-					$log.error('User is either not login or not authorized -- ' +
-						'redirect to login page');
-					$state.go('login');
+
 				}
 			}
 
@@ -156,10 +155,6 @@ define(
 					}
 				}
 
-			}
-
-			function endsWith(str, suffix) {
-				return str.indexOf(suffix, str.length - suffix.length) !== -1;
 			}
 		}
 	}

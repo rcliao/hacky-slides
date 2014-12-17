@@ -16,22 +16,41 @@ define(
 			var yesterdayId = (moment().day() === 1) ?
 				'5-' + (moment().week()-1) + '-' + moment().year() :
 				(moment().day()-1) + '-' + moment().week() + '-' + moment().year();
+			var tomorrowId = (moment().day() === 5) ?
+				'1-' + (moment().week()+1) + '-' + moment().year() :
+				(moment().day()+1) + '-' + moment().week() + '-' + moment().year();
 
 			var firebaseRefDef = {
 				source: source,
 				users: source.child('users'),
 				weeklyNotes: weeklyNotes,
 				currentDailyNotes: weeklyNotes.child(todayId),
-				lastWeeklyNotes: weeklyNotes.child(lastWeekId),
 				yesterdayNotes: weeklyNotes.child(yesterdayId),
+				getCurrentDailyNotes: getCurrentDailyNotes,
 				getPersonalDailyNotes: getPersonalDailyNotes
 			}
 
 			function getPersonalDailyNotes (username) {
-				return weeklyNotes
-					.child(todayId)
-					.child('notes')
-					.child(username);
+				if (moment().hour() >= 17) {
+					return weeklyNotes
+						.child(tomorrowId)
+						.child('notes')					
+						.child(username);
+				} else {
+					return weeklyNotes
+						.child(todayId)
+						.child('notes')
+						.child(username);
+				}
+			}
+
+			function getCurrentDailyNotes () {
+				if (moment().hour() >= 17) {
+					return weeklyNotes.child(tomorrowId);
+				} else {
+					return weeklyNotes.child(todayId);
+				}
+				
 			}
 
 			return firebaseRefDef;

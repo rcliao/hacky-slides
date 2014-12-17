@@ -41,19 +41,12 @@ define(
 
 			var vm = this;
 
-			vm.loginAsGoogle = loginAsGoogle;
 			vm.loginAsGithub = loginAsGithub;
 
 			function updateUser (user) {
 				if (user.$id) {
 					redirectToDashboard();
 				}
-			}
-
-			function loginAsGoogle () {
-				SimpleLoginService
-					.loginAsGoogle()
-					.then(loginSuccess, loginError);
 			}
 
 			function loginAsGithub () {
@@ -74,7 +67,7 @@ define(
 			}
 
 			function loginSuccess (user) {
-				vm.feedback = 'Welcome, ' + (user.displayName || user.email) +
+				vm.feedback = 'Welcome, ' + user.github.displayName +
 					'\n' +
 					'Redirecting to the dashboard...';
 
