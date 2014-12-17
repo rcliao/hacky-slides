@@ -1,6 +1,7 @@
 /* global require */
 
 require.config({
+	urlArgs: "bust=" +  (new Date()).getTime(),
 	paths: {
 		// angularjs official stuff
 		'angular': '../libs/angular/angular',
@@ -23,7 +24,7 @@ require.config({
 		'jquery': '../libs/jquery/dist/jquery.min',
 
 		// semantic-ui
-		'semantic-ui': '../libs/semantic/build/packaged/javascript/semantic',
+		'semantic-ui': '../libs/semantic-ui/dist/semantic.min',
 
 		// ACE editor
 		'ace': '../libs/ace-builds/src-min-noconflict/ace',

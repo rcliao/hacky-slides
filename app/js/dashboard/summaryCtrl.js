@@ -33,22 +33,22 @@ define(
 			vm.requestFullScreen = requestFullScreen;
 			vm.questions = $firebase(
 				firebaseReferenceService
-					.lastWeeklyNotes
+					.yesterdayNotes
 					.child('questions')
 			).$asArray();
 
 			$firebase(
 				firebaseReferenceService
-					.lastWeeklyNotes
+					.yesterdayNotes
 					.child('notes')
 			).$asArray()
 			.$loaded()
 			.then(buildWeeklySlides);
 
 
-			function buildWeeklySlides (weeklyNotes) {
-				vm.weeklyNotes = slidesService
-					.buildPresentationSlides(weeklyNotes)
+			function buildWeeklySlides (dailyNotes) {
+				vm.dailyNotes = slidesService
+					.buildPresentationSlides(dailyNotes)
 					.map(trustEachSlide);
 
 				function trustEachSlide (slideSection) {

@@ -16,7 +16,7 @@ define(
 			'$state',
 
 			'$firebase',
-			'$firebaseSimpleLogin',
+			'$firebaseAuth',
 
 			'firebaseReferenceService'
 		];
@@ -27,97 +27,83 @@ define(
 		function SimpleLoginService (
 			$rootScope, $log, $q,
 			$state,
-			$firebase, $firebaseSimpleLogin,
+			$firebase, $firebaseAuth,
 			firebaseReferenceService
 		) {
 
 			var ref = firebaseReferenceService.source;
 			var existingUserRef = firebaseReferenceService.users;
-			var simpleLogin = $firebaseSimpleLogin(ref);
+			var simpleLogin = $firebaseAuth(ref);
 
 			var service = {
-				loginAsGoogle: loginAsGoogle,
 				loginAsGithub: loginAsGithub,
 				getCurrentUser: getCurrentUser,
 				logout: logout
 			};
 
 			// when user gets to the page, get the current user from firebase
-			$firebaseSimpleLogin(ref)
-				.$getCurrentUser()
-				.then(updateUser);
+			var userAuthData = $firebaseAuth(ref)
+				.$getAuth();
+
+			$rootScope.$watch(userAuthData, function(userData) {
+				if (userAuthData) {
+					var userRef = existingUserRef.child(userAuthData.uid);
+					$rootScope.user = $firebase(userRef)
+						.$asObject();
+
+				}
+			});
 
 			// listener to login
-			$rootScope.$on('$firebaseSimpleLogin:login', storeUser);
+			simpleLogin.$onAuth(storeUser);
 
 			return service;
 
 			function getCurrentUser () {
-				return simpleLogin.$getCurrentUser()
-					.then(getUserFromDatabase);
+				var deferred = $q.defer();
 
-				function getUserFromDatabase (user) {
-					var deferred = $q.defer();
-
-					if (user) {
-						deferred.resolve(
-							$firebase(
-								existingUserRef
-									.child(user.id)
-							)
-							.$asObject()
-							.$loaded()
-							.then(returnUserObject)
-						);
-					} else {
-						deferred.reject('Failed to find user in database.');
-					}
-
-					return deferred.promise;
-
-					function returnUserObject (user) {
-						return user;
-					}
+				if (userAuthData) {
+					deferred.resolve(
+						$firebase(
+							existingUserRef
+								.child(userAuthData.uid)
+						)
+						.$asObject()
+						.$loaded()
+						.then(returnUserObject)
+					);
+				} else {
+					deferred.reject('Failed to find user in database.');
 				}
-			}
 
-			function loginAsGoogle () {
-				return simpleLogin.$login('google');
+				return deferred.promise;
+
+				function returnUserObject (user) {
+					return user;
+				}
 			}
 
 			function loginAsGithub () {
-				return simpleLogin.$login('github');
+				return simpleLogin.$authWithOAuthPopup('github');
 			}
 
 			function logout () {
-				simpleLogin.$logout();
+				simpleLogin.$unauth();
 				$state.go('login');
 			}
 
-			// update the rootscope user based on the current user in firebase
-			function updateUser (user) {
-				if(user) {
-					var userRef = existingUserRef.child(user.id);
-
-					$rootScope.user = $firebase(userRef)
-						.$asObject();
-				}
-			}
-
-			function storeUser (event, user) {
-				if (event) {
-					// TODO: add handler here
-				}
+			function storeUser (user) {
+				console.log(user);
 				if (user) {
 					if (!validateUserAsEdlio(user)) {
 						$rootScope
 							.$broadcast(
 								'simpleLoginService:notAuthenticatedAsEdlioUser'
 							);
-						simpleLogin.$logout();
+						simpleLogin.$unauth();
 					} else {
 						$firebase(
-							existingUserRef.child(user.id)
+							existingUserRef.child(user.uid)
 						)
 							.$asObject()
 							.$loaded()
@@ -127,11 +113,12 @@ define(
 									// list users, use them in security rules, and show profiles
 									$firebase(existingUserRef)
 										.$set(
-											user.id,
+											user.uid,
 											{
-												displayName: user.displayName,
+												displayName: user.github.displayName,
 												provider: user.provider,
-												email: (user.email || user.thirdPartyUserData.email)
+												email: user.github.email,
+												profile: user.github.cachedUserProfile.avatar_url
 											}
 										);
 								}
@@ -140,22 +127,17 @@ define(
 
 
 				} else {
-					$log.error('wtf');
+					$log.error('User is either not login or not authorized -- ' +
+						'redirect to login page');
+					$state.go('login');
 				}
 			}
 
 			function validateUserAsEdlio (user) {
-				switch (user.provider) {
-					case 'google':
-						return user.thirdPartyUserData.hd === 'edlio.com' || inWhiteList(user.email);
-					case 'github':
-						return user.thirdPartyUserData.emails.some(validateEdlioEmail) || inWhiteList(user.thirdPartyUserData.email);
-				}
+				return user.github.cachedUserProfile.company === 'Edlio';
 
-				function validateEdlioEmail (emailObj) {
-					return endsWith(emailObj.email, '@edlio.com');
-				}
-
+				// Not used but may be used later for the google signin
+				// Only if people request for it
 				function inWhiteList (email) {
 					return $firebase(
 						existingUserRef

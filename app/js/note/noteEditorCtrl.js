@@ -38,19 +38,19 @@ define(
 			var _editor = null;
 
 			// we will get/set the weekly note based onthe week number and year
-			var currentWeekId = moment().week() + '-' + moment().year();
+			var currentWeekId = moment().day() + '-' + moment().week() + '-' + moment().year();
 			var template = slidesService
 				.getPersonalNoteTemplate(currentUser.displayName);
-			var currentWeeklyNotes = firebaseReferenceService
-				.currentWeeklyNotes;
-			var personalWeeklyNoteRef = firebaseReferenceService
-				.getPersonalWeeklyNote(currentUser.displayName);
-			var currentWeeklyNoteFirebaseRef = $firebase(personalWeeklyNoteRef);
+			var currentDailyNotes = firebaseReferenceService
+				.currentDailyNotes;
+			var personalDailyNotes = firebaseReferenceService
+				.getPersonalDailyNotes(currentUser.displayName);
+			var currentWeeklyNoteFirebaseRef = $firebase(personalDailyNotes);
 
 			$scope.$watch(
 				function() {
-					if (vm.personalWeeklyNote) {
-						return vm.personalWeeklyNote.note;
+					if (vm.personalDailyNotes) {
+						return vm.personalDailyNotes.note;
 					} else {
 						return '';
 					}
@@ -79,10 +79,10 @@ define(
 			 * database before.
 			 */
 			function initNotes () {
-				currentWeeklyNotes
+				currentDailyNotes
 					.once('value', initNote);
 
-				personalWeeklyNoteRef
+				personalDailyNotes
 					.once('value', initPersonalNote);
 
 				// if there is no note for this week, create one
@@ -125,7 +125,7 @@ define(
 			 * return value
 			 */
 			function updateNote (note) {
-				vm.personalWeeklyNote = note;
+				vm.personalDailyNotes = note;
 			}
 
 			/**
@@ -133,8 +133,8 @@ define(
 			 * Angularjs
 			 */
 			function parseMarkdown () {
-				if (vm.personalWeeklyNote && vm.personalWeeklyNote.note) {
-					return $sce.trustAsHtml(marked(vm.personalWeeklyNote.note));
+				if (vm.personalDailyNotes && vm.personalDailyNotes.note) {
+					return $sce.trustAsHtml(marked(vm.personalDailyNotes.note));
 				} else {
 					return $sce.trustAsHtml('');
 				}

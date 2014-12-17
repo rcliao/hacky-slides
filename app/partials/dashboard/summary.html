@@ -2,7 +2,7 @@
   <div class="column inherit-height">
     <div class="ui inverted segment attached summary-inner-container">
       <div class="ui segment"
-        ng-repeat="note in summary.weeklyNotes">
+        ng-repeat="note in summary.dailyNotes">
         <div ng-repeat="slide in note.slides" ng-bind-html="slide">
         </div>
       </div>
@@ -46,7 +46,7 @@
         </div>
       </div>
 
-      <div class="ui red icon message" ng-if="summary.weeklyNotes.length === 1">
+      <div class="ui red icon message" ng-if="summary.dailyNotes.length === 1">
         <i class="warning icon"></i>
         <div class="content">
           <div class="header">

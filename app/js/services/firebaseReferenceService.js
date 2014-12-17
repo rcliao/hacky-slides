@@ -11,21 +11,25 @@ define(
 		function firebaseReferenceService () {
 			var source = new Firebase('https://hacky-slides.firebaseio.com/');
 			var weeklyNotes = source.child('weeklyNotes');
-			var currentWeekId = moment().week() + '-' + moment().year();
+			var todayId = moment().day() + '-' + moment().week() + '-' + moment().year();
 			var lastWeekId = (moment().week()-1) + '-' + moment().year();
+			var yesterdayId = (moment().day() === 1) ?
+				'5-' + (moment().week()-1) + '-' + moment().year() :
+				(moment().day()-1) + '-' + moment().week() + '-' + moment().year();
 
 			var firebaseRefDef = {
 				source: source,
 				users: source.child('users'),
 				weeklyNotes: weeklyNotes,
-				currentWeeklyNotes: weeklyNotes.child(currentWeekId),
+				currentDailyNotes: weeklyNotes.child(todayId),
 				lastWeeklyNotes: weeklyNotes.child(lastWeekId),
-				getPersonalWeeklyNote: getPersonalWeeklyNote
+				yesterdayNotes: weeklyNotes.child(yesterdayId),
+				getPersonalDailyNotes: getPersonalDailyNotes
 			}
 
-			function getPersonalWeeklyNote (username) {
+			function getPersonalDailyNotes (username) {
 				return weeklyNotes
-					.child(currentWeekId)
+					.child(todayId)
 					.child('notes')
 					.child(username);
 			}

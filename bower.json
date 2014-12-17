@@ -13,12 +13,13 @@
     "angular-ui-utils": "latest",
     "firebase": "latest",
     "angularfire": "latest",
-    "semantic": "latest",
     "animate.css": "~3.2.0",
     "marked": "~0.3.2",
     "angular-ui-ace": "bower",
     "angular-touch": "~1.2.26",
     "moment": "~2.8.3",
-    "reveal.js": "~2.6.2"
+    "reveal.js": "~2.6.2",
+    "semantic-ui": "~1.2.0",
+    "firebase-simple-login": "~1.6.4"
   }
 }

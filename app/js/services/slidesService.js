@@ -24,19 +24,15 @@ define(
 			function getPersonalNoteTemplate (username) {
 				return '# ' + username + '\n' +
 					'\n' +
-					'## This Week\n' +
+					'## Yesterday\n' +
 					'1. Working on feature 1\n' +
-					'2. Fixing bugs for feature 2\n' +
-					'3. Assist someone for feature 3\n' +
-					'4. Code review for feature 4\n' +
+					'\n\n' +
+					'## Today\n' +
+					'1. Continue with feature 1\n' +
+					'2. Finished up feature 2\n' +
 					'\n\n' +
 					'## Challenges\n' +
-					'1. Waiting the code review for feature 1\n' +
-					'2. Researching for something\n' +
-					'\n\n' +
-					'## Next Week\n' +
-					'1. Continue with feature 1\n' +
-					'2. Code review for feature 101\n';
+					'1. Code review for feature 101\n';
 			}
 
 			function parseMarkdownToSlides (markdownText) {

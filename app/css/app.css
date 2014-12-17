@@ -36,8 +36,10 @@ body {
 
 .edlio-watermark-svg {
   width: 2em;
-  height: 1em;
+  height: 1.5em;
   float: left;
+  fill: rgb(255, 0, 0);
+  margin-right: 0.5em;
 }
 
 .fix-center-label {
@@ -106,7 +108,15 @@ body {
   bottom: 0;
   right: 0;
 
-  height: 242px;
+  height: 264px;
+}
+
+#login_form .ui.header {
+  line-height: 1.7em;
+}
+
+#login_form .ui.red.ribbon.label {
+  padding-bottom: 0;
 }
 
 .body-container {
@@ -126,9 +136,13 @@ body {
   margin: 0;
 }
 
-.ui.grid > .column {
+.ui.grid>.column:not(.row) {
   margin: 0;
   padding: 0;
+}
+
+.floated.right {
+  float: right;
 }
 
 .upcoming-presentor {

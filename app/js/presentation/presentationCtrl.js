@@ -31,7 +31,7 @@ define(
 
 			$firebase(
 				firebaseReferenceService
-					.currentWeeklyNotes
+					.currentDailyNotes
 					.child('notes')
 			).$asArray()
 			.$loaded()
@@ -39,11 +39,11 @@ define(
 
 			vm.currentWeeklyNoteRef = $firebase(
 				firebaseReferenceService
-					.currentWeeklyNotes
+					.currentDailyNotes
 			);
 			vm.currentWeeklyQuestionsRef = $firebase(
 				firebaseReferenceService
-					.currentWeeklyNotes
+					.currentDailyNotes
 					.child('questions')
 			);
 			vm.questionMode = 'question';
@@ -57,19 +57,17 @@ define(
 			/**
 			 * Build slides with everyone's notes
 			 */
-			function buildWeeklySlides (weeklyNotes) {
-				var shuffledNotes = shuffle(weeklyNotes);
-
-				for (var i = 0; i < weeklyNotes.length; i ++) {
-					if (i !== weeklyNotes.length - 1) {
-						weeklyNotes[i].note += '\n<div class="upcoming-presentor"><strong>Upcoming</strong> ' + weeklyNotes[i+1].$id + '</div>';
+			function buildWeeklySlides (dailyNotes) {
+				for (var i = 0; i < dailyNotes.length; i ++) {
+					if (i !== dailyNotes.length - 1) {
+						dailyNotes[i].note += '\n<div class="upcoming-presentor"><strong>Upcoming</strong> ' + dailyNotes[i+1].$id + '</div>';
 					} else {
-						weeklyNotes[i].note += '\n<div class="upcoming-presentor"><strong>The End</strong></div>';
+						dailyNotes[i].note += '\n<div class="upcoming-presentor"><strong>The End</strong></div>';
 					}
 				}
 
-				vm.weeklyNotes = slidesService
-					.buildPresentationSlides(shuffledNotes)
+				vm.dailyNotes = slidesService
+					.buildPresentationSlides(dailyNotes)
 					.map(trustEachSlide);
 
 				function trustEachSlide (slideSection) {

@@ -23,7 +23,7 @@
 					onLoad: noteEditor.aceOnLoaded,
 					onChange: noteEditor.aceOnChange
 				}"
-				ng-model="noteEditor.personalWeeklyNote.note">
+				ng-model="noteEditor.personalDailyNotes.note">
 			</div>
 		</div>
 	</div>
@@ -50,7 +50,7 @@
 				<div class="ui button"
 					tooltip-placement="bottom" tooltip="Fullscreen mode"
 					ng-click="noteEditor.requestFullscreen()">
-					<i class="fullscreen icon"></i>
+					<i class="expand icon"></i>
 				</div>
 			</div>
 		</header>
@@ -101,7 +101,7 @@
 					onLoad: noteEditor.aceOnLoaded,
 					onChange: noteEditor.aceOnChange
 				}"
-				ng-model="noteEditor.personalWeeklyNote.note">
+				ng-model="noteEditor.personalDailyNotes.note">
 			</div>
 		</div>
 

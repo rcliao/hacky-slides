@@ -1,4 +1,4 @@
-<section class="ui one column computer tablet only grid inherit-height">
+<section class="ui one column grid inherit-height">
 	<div class="column">
 		<div class="ui fluid four item red menu">
 			<a class="item" ui-sref="dashboard.summary"
@@ -17,7 +17,7 @@
 				Presentation
 			</a>
 			<a class="ui pointing dropdown item" semantic-dropdown>
-				<i class="user icon"></i>
+				<img class="ui avatar image" ng-src="{{dashboard.currentUser.profile}}">
 				{{dashboard.currentUser.displayName}}
 				<div class="menu">
 					<div class="item" ng-click="dashboard.logout()">
@@ -25,32 +25,6 @@
 						Logout
 					</div>
 				</div>
-			</a>
-		</div>
-	</div>
-
-	<div class="column body-container">
-		<div class="inherit-height" ui-view></div>
-	</div>
-</section>
-
-<section class="ui one column mobile only grid inherit-height">
-	<div class="column">
-		<div class="ui fluid four item red menu">
-			<a class="item" ui-sref="dashboard.summary"
-				ui-sref-active-eq="active">
-				<i class="archive icon"></i>
-			</a>
-			<a class="item" ui-sref="dashboard.noteEditor"
-				ui-sref-active="active">
-				<i class="file outline icon"></i>
-			</a>
-			<a class="item" ui-sref="dashboard.presentation"
-				ui-sref-active="active">
-				<i class="video icon"></i>
-			</a>
-			<a class="item">
-				<i class="user icon"></i>
 			</a>
 		</div>
 	</div>
