@@ -103,7 +103,6 @@ define(
 			}
 
 			function storeUser (user) {
-				console.log(user);
 				if (user) {
 					validateUserAsEdlio(user)
 					.then(
