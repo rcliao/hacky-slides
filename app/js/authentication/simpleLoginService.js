@@ -12,6 +12,7 @@ define(
 			'$rootScope',
 			'$log',
 			'$q',
+			'$http',
 
 			'$state',
 
@@ -25,7 +26,7 @@ define(
 			.factory('SimpleLoginService', SimpleLoginService);
 
 		function SimpleLoginService (
-			$rootScope, $log, $q,
+			$rootScope, $log, $q, $http,
 			$state,
 			$firebase, $firebaseAuth,
 			firebaseReferenceService
@@ -86,7 +87,14 @@ define(
 			}
 
 			function loginAsGithub () {
-				return simpleLogin.$authWithOAuthPopup('github');
+				return simpleLogin
+					.$authWithOAuthPopup(
+						'github',
+						{
+							remember: 'sessionOnly',
+							scope: 'read:org' // read the organization for the authentication purpose
+						}
+					);
 			}
 
 			function logout () {
@@ -95,66 +103,66 @@ define(
 			}
 
 			function storeUser (user) {
+				console.log(user);
 				if (user) {
-					if (!validateUserAsEdlio(user)) {
-						$rootScope
-							.$broadcast(
-								'simpleLoginService:notAuthenticatedAsEdlioUser'
-							);
-						simpleLogin.$unauth();
-					} else {
-						$firebase(
-							existingUserRef.child(user.uid)
-						)
-							.$asObject()
-							.$loaded()
-							.then(function(existingUser) {
-								if(!existingUser.displayName) {
-									// save new user's profile into Firebase so we can
-									// list users, use them in security rules, and show profiles
-									$firebase(existingUserRef)
-										.$set(
-											user.uid,
-											{
-												displayName: user.github.displayName,
-												provider: user.provider,
-												email: user.github.email,
-												profile: user.github.cachedUserProfile.avatar_url
-											}
-										);
+					validateUserAsEdlio(user)
+					.then(
+						function(response) {
+							if (response.status === 200) {
+								var userOrganizations = response.data;
+								for (var i = 0; i < userOrganizations.length; i ++) {
+									if (userOrganizations[i].login.toLowerCase() === 'Edlio'.toLowerCase()) {
+										updateUserInfo();
+										return true;
+									}
 								}
-							});
-					}
 
-
+								unauthorizedNonEdlioUser();
+							} else {
+								unauthorizedNonEdlioUser();
+							}
+						},
+						function() {
+							unauthorizedNonEdlioUser();
+						}
+					)
 				} else {
 
+				}
+
+				function unauthorizedNonEdlioUser () {
+					$rootScope
+						.$broadcast(
+							'simpleLoginService:notAuthenticatedAsEdlioUser'
+						);
+					simpleLogin.$unauth();
+				}
+
+				function updateUserInfo () {
+					// save new user's profile into Firebase so we can
+					// list users, use them in security rules, and show profiles
+					$firebase(existingUserRef)
+						.$set(
+							user.uid,
+							{
+								displayName: user.github.displayName,
+								email: (user.github.email || ''),
+								profile: (user.github.cachedUserProfile.avatar_url || '')
+							}
+						);
 				}
 			}
 
 			function validateUserAsEdlio (user) {
-				return user.github.cachedUserProfile.company === 'Edlio';
-
-				// Not used but may be used later for the google signin
-				// Only if people request for it
-				function inWhiteList (email) {
-					return $firebase(
-						existingUserRef
-							.child('whiteLists')
-							.child('emails')
-					).$asArray()
-					.$loaded()
-					.then(checkEmails);
-
-					function checkEmails (emails) {
-						return emails.some(checkEmail);
-
-						function checkEmail (userEmail) {
-							return userEmail.$value === email;
+				return $http.get(
+					'https://api.github.com/user/orgs',
+					{
+						headers: {
+							'Accept': 'application/vnd.github.moondragon-preview+json',
+							'Authorization': 'token ' + user.github.accessToken
 						}
 					}
-				}
-
+				);
 			}
 		}
 	}
