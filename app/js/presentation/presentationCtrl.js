@@ -142,7 +142,7 @@ define(
 				if (event.currentSlide.innerHTML.indexOf('hidden trigger-start-timer') > -1) {
 					var timerContainer = angular.element(document.querySelector('.presentor-timer'));
 
-					vm.seconds = 5;
+					vm.seconds = 90;
 
 					if (vm.countdownTimer) {
 						$interval.cancel(vm.countdownTimer);
