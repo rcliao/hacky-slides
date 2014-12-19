@@ -38,11 +38,11 @@ define(
 			var _editor = null;
 
 			// we will get/set the weekly note based onthe week number and year
-			var currentWeekId = moment().day() + '-' + moment().week() + '-' + moment().year();
+			var currentDailyId = firebaseReferenceService.getCurrentDailyId();
 			var template = slidesService
 				.getPersonalNoteTemplate(currentUser.displayName);
 			var currentDailyNotes = firebaseReferenceService
-				.currentDailyNotes;
+				.getCurrentDailyNotes();
 			var personalDailyNotes = firebaseReferenceService
 				.getPersonalDailyNotes(currentUser.displayName);
 			var currentWeeklyNoteFirebaseRef = $firebase(personalDailyNotes);
@@ -82,32 +82,34 @@ define(
 				currentDailyNotes
 					.once('value', initNote);
 
-				personalDailyNotes
-					.once('value', initPersonalNote);
-
 				// if there is no note for this week, create one
 				function initNote (value) {
+					console.log(value.val());
 					if (value.val() === undefined || value.val() === null) {
 						$firebase(
 							firebaseReferenceService
 								.weeklyNotes
 						).$set(
-							currentWeekId,
+							currentDailyId,
 							{
 								currentSlide: 0,
 								notes: []
 							}
 						);
 					}
+					personalDailyNotes
+						.once('value', initPersonalNote);
 				}
 
 				// if there is no personal note yet, init with the template
 				function initPersonalNote (value) {
+					console.log(value.val());
 					if (value.val() === null) {
+						console.log(currentUser.displayName);
 						$firebase(
 							firebaseReferenceService
 								.weeklyNotes
-								.child(currentWeekId)
+								.child(currentDailyId)
 								.child('notes')
 						)
 						.$set(

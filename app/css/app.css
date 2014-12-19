@@ -159,6 +159,19 @@ body {
   color: rgba(255, 255, 255, 0.2);
 }
 
+.reveal .presentor-timer {
+  position: absolute;
+  right: 1em;
+  top: 1em;
+
+  font-size: 1.2em;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.hidden {
+  display: none;
+}
+
 /* Animations with Animate.css */
 
 #main_views.ng-enter,

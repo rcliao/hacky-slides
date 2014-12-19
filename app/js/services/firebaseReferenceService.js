@@ -26,6 +26,7 @@ define(
 				weeklyNotes: weeklyNotes,
 				currentDailyNotes: weeklyNotes.child(todayId),
 				yesterdayNotes: weeklyNotes.child(yesterdayId),
+				getCurrentDailyId: getCurrentDailyId,
 				getCurrentDailyNotes: getCurrentDailyNotes,
 				getPersonalDailyNotes: getPersonalDailyNotes
 			}
@@ -34,7 +35,7 @@ define(
 				if (moment().hour() >= 17) {
 					return weeklyNotes
 						.child(tomorrowId)
-						.child('notes')					
+						.child('notes')
 						.child(username);
 				} else {
 					return weeklyNotes
@@ -50,7 +51,14 @@ define(
 				} else {
 					return weeklyNotes.child(todayId);
 				}
-				
+			}
+
+			function getCurrentDailyId () {
+				if (moment().hour() >= 17) {
+					return tomorrowId;
+				} else {
+					return todayId;
+				}
 			}
 
 			return firebaseRefDef;

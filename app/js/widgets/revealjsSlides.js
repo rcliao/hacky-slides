@@ -3,10 +3,9 @@
 define(
 	[
 		'hackySlides.module',
-		'reveal',
-		'jquery'
+		'reveal'
 	],
-	function(app, $) {
+	function(app) {
 		'use strict';
 
 		revealjsPresentation.$inject = ['$timeout'];

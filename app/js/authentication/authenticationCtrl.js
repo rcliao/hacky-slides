@@ -58,7 +58,6 @@ define(
 			/* Helper methods */
 
 			function handleNotValidatedEdlioUser () {
-				console.log('test');
 				// cancel the login success timeout event
 				if (vm.feedbackId) {
 					$timeout.cancel(vm.feedbackId);
