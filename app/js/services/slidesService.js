@@ -13,7 +13,7 @@ define(
 
 		function slidesService () {
 			var edlioIntroSlide = '# Edlio Stand Up Notes\n' +
-				moment().format('MMMM, Do, YYYY');
+				moment().format('MMMM Do, YYYY');
 
 			var firebaseRefDef = {
 				getPersonalNoteTemplate: getPersonalNoteTemplate,

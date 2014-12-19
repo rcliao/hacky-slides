@@ -43,13 +43,6 @@ define(
 				firebaseReferenceService
 					.currentDailyNotes
 			);
-			vm.currentWeeklyQuestionsRef = $firebase(
-				firebaseReferenceService
-					.currentDailyNotes
-					.child('questions')
-			);
-			vm.questionMode = 'question';
-			vm.currentQuestionKey = undefined;
 
 			// to append a timer div for displaying timer on the top right
 			angular.element(document.querySelector('.slides')).ready(
@@ -72,6 +65,8 @@ define(
 			 * Build slides with everyone's notes
 			 */
 			function buildWeeklySlides (dailyNotes) {
+				dailyNotes = shuffle(dailyNotes);
+
 				for (var i = 0; i < dailyNotes.length; i ++) {
 					dailyNotes[i].note = '<div class="hidden trigger-start-timer"></div>\n' + dailyNotes[i].note;
 					if (i !== dailyNotes.length - 1) {
