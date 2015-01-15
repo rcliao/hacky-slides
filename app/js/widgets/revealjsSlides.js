@@ -61,9 +61,6 @@ define(
 							theme: 'default', // available themes are in /css/theme
 							transition: (typeof window.orientation !== 'undefined') ? 'none' : 'default', // default/cube/page/concave/zoom/linear/fade/none
 
-							parallaxBackgroundImage: 'img/background/' + moment().year() + '-' + (moment().month() + 1) + '.jpg',
-							parallaxBackgroundSize: '1920px 1080px',
-
 							// Optional libraries used to extend on reveal.js
 							dependencies: [
 								{ src: 'libs/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } }
