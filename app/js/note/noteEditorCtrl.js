@@ -73,6 +73,7 @@ define(
 			vm.aceOnChange = aceOnChange;
 			vm.toggleVimMode = toggleVimMode;
 			vm.requestFullscreen = requestFullscreen;
+			vm.isPassSixPM = isPassSixPM;
 
 			/**
 			 * This function initializes the note when it's not being in the
@@ -218,6 +219,10 @@ define(
 				} else if (elem.webkitRequestFullscreen) {
 					elem.webkitRequestFullscreen();
 				}
+			}
+
+			function isPassSixPM () {
+				return moment().hour() >= 17;
 			}
 		}
 	}
