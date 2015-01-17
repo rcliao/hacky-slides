@@ -85,7 +85,6 @@ define(
 
 				// if there is no note for this week, create one
 				function initNote (value) {
-					console.log(value.val());
 					if (value.val() === undefined || value.val() === null) {
 						$firebase(
 							firebaseReferenceService
@@ -104,9 +103,7 @@ define(
 
 				// if there is no personal note yet, init with the template
 				function initPersonalNote (value) {
-					console.log(value.val());
 					if (value.val() === null) {
-						console.log(currentUser.displayName);
 						$firebase(
 							firebaseReferenceService
 								.weeklyNotes

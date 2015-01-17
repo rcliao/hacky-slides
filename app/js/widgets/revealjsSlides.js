@@ -70,7 +70,35 @@ define(
 						Reveal.addEventListener('slidechanged', function(event) {
 							scope.slideChangeEvent({'event': event});
 						});
+
+						updateRandomBackgroundImage();
 					});
+				}
+
+				function updateRandomBackgroundImage () {
+					var randomBackgroundUrl = '';
+
+					var backgroundImages = [
+						'img/bridge_raining.gif',
+						'img/castle.gif',
+						'img/dawn.gif',
+						'img/et.gif',
+						'img/falls.gif',
+						'img/nature.gif',
+						'img/northlights.gif',
+						'img/pixelphony_2.gif',
+						'img/watchdogs.gif'
+					];
+
+					randomBackgroundUrl = backgroundImages[Math.floor(Math.random() * 9)];
+
+					angular.element(
+						document.querySelector('.reveal')
+					).css(
+						{
+							'background-image': 'url(' + randomBackgroundUrl + ')'
+						}
+					);
 				}
 			}
 		}
