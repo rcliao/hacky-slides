@@ -28,11 +28,6 @@ define(
 
 			function linkFunction (scope, element) {
 
-				if (element.length > 0) {
-					element
-						.ready(initReveal);
-				}
-
 				scope.$watch(
 					function() {
 						return scope.slideSections;
@@ -45,34 +40,39 @@ define(
 					}
 				);
 
+				scope.$on('$destroy', function() {
+					// need to reset the reveal events or we get errors
+					Reveal.removeEventListeners();
+				});
+
 				function initReveal () {
-					$timeout(function() {
-						// Full list of configuration options available here:
-						// https://github.com/hakimel/reveal.js#configuration
-						Reveal.initialize({
-							controls: true,
-							progress: true,
-							loop: false,
-							history: false, // a trick to disable the routing with angular
-							fragment: true,
-							center: true,
-							embedded: true,
+					// Full list of configuration options available here:
+					// https://github.com/hakimel/reveal.js#configuration
+					Reveal.initialize({
+						controls: true,
+						progress: true,
+						loop: false,
+						history: false, // a trick to disable the routing with angular
+						fragment: true,
+						center: true,
+						embedded: true,
 
-							theme: 'default', // available themes are in /css/theme
-							transition: (typeof window.orientation !== 'undefined') ? 'none' : 'default', // default/cube/page/concave/zoom/linear/fade/none
+						theme: 'default', // available themes are in /css/theme
+						transition: (typeof window.orientation !== 'undefined') ? 'none' : 'default', // default/cube/page/concave/zoom/linear/fade/none
 
-							// Optional libraries used to extend on reveal.js
-							dependencies: [
-								{ src: 'libs/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } }
-							]
-						});
-
-						Reveal.addEventListener('slidechanged', function(event) {
-							scope.slideChangeEvent({'event': event});
-						});
-
-						updateRandomBackgroundImage();
+						// Optional libraries used to extend on reveal.js
+						dependencies: [
+							{ src: 'libs/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } }
+						]
 					});
+
+					Reveal.addEventListener('slidechanged', function(event) {
+						scope.slideChangeEvent({'event': event});
+					});
+
+					updateRandomBackgroundImage();
+
+					addTimerDOM();
 				}
 
 				function updateRandomBackgroundImage () {
@@ -99,6 +99,17 @@ define(
 							'background-image': 'url(' + randomBackgroundUrl + ')'
 						}
 					);
+				}
+
+				function addTimerDOM () {
+					// event.currentSlide, event.indexh, event.indexv
+					var timerContainer = angular.element(document.createElement('div'));
+					timerContainer.addClass('presentor-timer');
+
+					timerContainer.text('Timer here');
+
+					angular.element(document.querySelector('.reveal'))
+						.append(timerContainer);
 				}
 			}
 		}

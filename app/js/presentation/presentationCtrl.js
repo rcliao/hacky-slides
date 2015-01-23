@@ -44,20 +44,6 @@ define(
 					.currentDailyNotes
 			);
 
-			// to append a timer div for displaying timer on the top right
-			angular.element(document.querySelector('.slides')).ready(
-				function() {
-					// event.currentSlide, event.indexh, event.indexv
-					var timerContainer = angular.element(document.createElement('div'));
-					timerContainer.addClass('presentor-timer');
-
-					timerContainer.text('Timer here');
-
-					angular.element(document.querySelector('.reveal'))
-						.append(timerContainer);
-				}
-			);
-
 			vm.requestFullScreen = requestFullScreen;
 			vm.onSlideChanged = onSlideChanged;
 
